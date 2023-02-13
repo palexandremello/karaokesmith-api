@@ -17,6 +17,9 @@ aiohttp = "^3.8.3"
 pytest = "^7.2.1"
 coverage = {version = "^7.1.0", extras = ["toml"]}
 
+[tool.poetry.group.dev.dependencies]
+pytest-mock = "^3.10.0"
+
 [build-system]
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
