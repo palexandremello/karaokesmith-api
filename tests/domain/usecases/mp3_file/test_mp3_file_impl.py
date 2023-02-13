@@ -7,7 +7,7 @@ from domain.usecases.mp3_file.mp3_file_impl import Mp3FileUseCaseImpl
 
 
 class Mp3FileServiceStub(Mp3FileServiceInterface):
-    def validate_mp3_file(self, path: str) -> Union[Exception, None]:
+    def validate_mp3_file(self, name: str, path: str) -> Union[Exception, None]:
         pass
 
 
@@ -24,18 +24,21 @@ def mockExceptionMp3FileServiceStub():
 def test_should_return_Mp3File_when_path_is_valid():
     mp3_file_service_stub = mockMp3FileServiceStub()
     sut = Mp3FileUseCaseImpl(mp3_file_service_stub)
-    path = "any_path"
-    mp3_file = sut.execute(path)
+    mp3_dict = {"name": "森高千里 『ザ・ストレス -ストレス 中近東バージョン-』",
+                "path": "any_path"}
+
+    mp3_file = sut.execute(mp3_dict["name"], mp3_dict["path"])
 
     assert isinstance(mp3_file, Mp3File)
 
-    assert mp3_file.path == path
+    assert mp3_file.path == mp3_dict["path"]
 
 def test_should_return_Exception_when_path_is_invalid():
     mp3_file_service_stub = mockExceptionMp3FileServiceStub()
     sut = Mp3FileUseCaseImpl(mp3_file_service_stub)
-    path = "any_path"
+    mp3_dict = {"name": "森高千里 『ザ・ストレス -ストレス 中近東バージョン-』",
+                "path": "any_path"}
 
-    error = sut.execute(path)
+    error = sut.execute(mp3_dict["name"], mp3_dict["path"])
 
     assert isinstance(error, Exception)

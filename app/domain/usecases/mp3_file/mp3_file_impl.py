@@ -9,10 +9,10 @@ class Mp3FileUseCaseImpl(Mp3FileInterface):
     def __init__(self, mp3_file_service: Mp3FileServiceInterface) -> None:
         self.mp3_file_service  = mp3_file_service
 
-    def execute(self, path: str) -> Union[Exception, Mp3File]:
+    def execute(self, name: str, path: str) -> Union[Exception, Mp3File]:
         response = self.mp3_file_service.validate_mp3_file(path)
 
         if not response:
-            return Mp3File(name="musica", path=path)
+            return Mp3File(name=name, path=path)
         
         return response

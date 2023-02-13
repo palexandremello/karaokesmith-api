@@ -1,6 +1,6 @@
 import pytest
 
-from app.domain.entities.mp3_file import Mp3File
+from domain.entities.mp3_file import Mp3File
 
 def test_mp3_file_from_dict():
     mp3_dict = {"name": "森高千里 『ザ・ストレス -ストレス 中近東バージョン-』",
