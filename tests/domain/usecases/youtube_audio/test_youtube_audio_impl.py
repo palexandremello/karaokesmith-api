@@ -9,3 +9,5 @@ def test_should_YoutubeAudioUseCaseImpl_same_instance_of_YoutubeAudioUseCaseInte
     sut = YoutubeAudioUseCaseImpl()
 
     assert isinstance(sut, YoutubeAudioUseCaseInterface)
+
+
