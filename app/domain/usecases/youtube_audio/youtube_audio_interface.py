@@ -2,7 +2,6 @@
 
 from abc import ABC, abstractmethod
 from typing import Optional
-
 from domain.entities.youtube_audio import YoutubeAudio
 
 
