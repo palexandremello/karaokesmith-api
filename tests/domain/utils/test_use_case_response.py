@@ -20,5 +20,6 @@ def test_should_be_same_instance_of_UseCaseResponse():
 def test_should_be_able_to_return_a_dictionary_response():
     use_case_response = UseCaseResponse(success=True, body=BODY)
 
+    use_case_response.body
     response = use_case_response.to_dict()
     assert response == EXPECTED_RESPONSE

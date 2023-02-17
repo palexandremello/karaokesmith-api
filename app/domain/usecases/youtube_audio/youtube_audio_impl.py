@@ -11,7 +11,6 @@ class YoutubeAudioUseCaseImpl(YoutubeAudioUseCaseInterface):
                  video_to_audio_converter_usecase: VideoToAudioConverterUseCaseInterface) -> None:
         self.get_video_use_case = get_youtube_video_usecase
         self.convert_video_to_audio_use_case = video_to_audio_converter_usecase
-
-    
-    def execute(cls, link: str, name: Optional[str] = None) -> UseCaseResponse[YoutubeAudio]:
+        
+    def execute(self, link: str, name: Optional[str] = None) -> UseCaseResponse[YoutubeAudio]:
         pass
