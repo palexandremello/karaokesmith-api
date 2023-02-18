@@ -31,3 +31,18 @@ class TestMp3FileService:
          response = await mp3_file_service.validate_mp3_file("ANY_PATH")
 
          assert response is None
+
+    @pytest.mark.asyncio
+    async def test_should_raise_exception_when_validate_is_incorrect(self, mp3_file_service,
+                                                               mp3_file_validator_stub):
+        
+        expected_error = Exception("validation error")
+
+        mp3_file_validator_stub.validate = AsyncMock(side_effect=expected_error)
+
+    
+        error = await mp3_file_service.validate_mp3_file("ANY_PATH")
+        
+        assert isinstance(error, Exception)
+        
+        assert error == expected_error
