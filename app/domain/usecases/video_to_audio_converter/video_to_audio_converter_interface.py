@@ -7,5 +7,5 @@ from domain.utils.use_case_response import UseCaseResponse
 class VideoToAudioConverterUseCaseInterface(ABC):
 
     @abstractmethod
-    def convert(self, video: VideoSource) -> UseCaseResponse[AudioMedia]:
+    async def convert(self, video: VideoSource) -> UseCaseResponse[AudioMedia]:
         pass
