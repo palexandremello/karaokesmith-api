@@ -13,9 +13,9 @@ class VideoToAudioConverterUseCase(VideoToAudioConverterUseCaseInterface):
     def __init__(self, video_converter_service: VideoConverterServiceInterface) -> None:
         self.video_converter_service = video_converter_service
 
-    def convert(self, video: VideoSource) -> UseCaseResponse[AudioMedia]:
+    async def convert(self, video: VideoSource) -> UseCaseResponse[AudioMedia]:
         try:
-            audio = self.video_converter_service.execute(video)
+            audio = await self.video_converter_service.execute(video)
             return UseCaseResponse(success=True, body=audio)
         
         except Exception as error:
