@@ -30,3 +30,16 @@ class TestMp3FileUseCase:
             
           assert response.success
           assert response.body == Mp3File.from_dict(self.MP3_DICT)
+
+    @pytest.mark.asyncio
+    async def test_should_return_Exception_when_path_is_invalid(self, mp3_file_usecase: Mp3FileUseCaseInterface,
+                                                            mp3_file_service_stub: Mp3FileServiceInterface):
+        
+        expected_error = Exception("invalid mp3 file")
+        mp3_file_service_stub.validate_mp3_file = AsyncMock(side_effect=expected_error)    
+
+
+        response = await mp3_file_usecase.execute(self.MP3_DICT["name"], self.MP3_DICT["path"])
+
+        assert not response.success
+        assert response.body == str(expected_error)

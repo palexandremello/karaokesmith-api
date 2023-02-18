@@ -9,10 +9,10 @@ class Mp3FileUseCase(Mp3FileUseCaseInterface):
         self.mp3_file_service  = mp3_file_service
     
     async def execute(self, name: str, path: str) -> UseCaseResponse[Mp3File]:
-        validate = await self.mp3_file_service.validate_mp3_file(path)
-
-        if not isinstance(validate, Exception):
+        try:
+            await self.mp3_file_service.validate_mp3_file(path)
             mp3_file = Mp3File(name=name, path=path)
             return UseCaseResponse(success=True, body=mp3_file)
         
-        return UseCaseResponse(success=False, body=str(validate))            
+        except Exception as errorr:
+            return UseCaseResponse(success=False, body=str(errorr))            
