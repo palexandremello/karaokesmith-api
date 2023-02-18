@@ -13,7 +13,7 @@ class TestVideoToAudioConverterUseCase:
 
     @pytest_asyncio.fixture
     def video_converter_service_stub(self) -> VideoConverterServiceInterface:
-        return Mock(spec=VideoConverterServiceInterface)
+        return AsyncMock(spec=VideoConverterServiceInterface)
     
 
     @pytest_asyncio.fixture

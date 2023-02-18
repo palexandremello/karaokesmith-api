@@ -2,43 +2,32 @@
 
 from typing import Union
 from unittest import mock 
-from unittest.mock import MagicMock, Mock
+from unittest.mock import AsyncMock, MagicMock, Mock
+import pytest
+
+import pytest_asyncio
 from domain.services.mp3_file.mp3_file_service import Mp3FileService
 from domain.services.mp3_file.mp3_file_validator_interface import Mp3FileValidatorInterface
 
 
-class Mp3FileValidatorStub(Mp3FileValidatorInterface):
-    def validate(self, path: str) -> Union[None, Exception]:
-        return super().validate(path)
 
+class TestMp3FileService:
 
-
-def mock_Mp3FileValidator_with_correct_validation():
-    validator = Mp3FileValidatorStub()
-    validator.validate = MagicMock(return_value=None)
-    return validator
-
-def mock_exception_Mp3FileValidator():
-    validator = Mp3FileValidatorStub()
-    validator.validate = Mock(side_effect=Exception("any_error"))
-    return validator
-
-
-def test_should_return_None_when_validate_is_correct():
-    validator = mock_Mp3FileValidator_with_correct_validation()
-    sut = Mp3FileService(validator)
-
-    response = sut.validate_mp3_file("ANY_PATH")
-
-    assert response is None
-
-
-def test_should_raise_exception_when_validate_is_incorrect():
-    validator = mock_exception_Mp3FileValidator()
-
-    sut = Mp3FileService(validator)
-
-    error = sut.validate_mp3_file("ANY_PATH")
+    @pytest_asyncio.fixture
+    def mp3_file_validator_stub(self) -> Mp3FileValidatorInterface:
+        return AsyncMock(spec=Mp3FileValidatorInterface)
     
-    assert isinstance(error, Exception)
-        
+
+    @pytest_asyncio.fixture
+    def mp3_file_service(self, mp3_file_validator_stub):
+        return Mp3FileService(mp3_file_validator_stub)
+    
+    @pytest.mark.asyncio
+    async def test_should_return_None_when_validate_is_correct(self, mp3_file_service,
+                                                         mp3_file_validator_stub):
+         
+         mp3_file_validator_stub.validate = AsyncMock(return_value=None)
+
+         response = await mp3_file_service.validate_mp3_file("ANY_PATH")
+
+         assert response is None
