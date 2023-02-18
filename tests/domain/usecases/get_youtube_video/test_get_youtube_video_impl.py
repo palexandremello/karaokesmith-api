@@ -30,9 +30,19 @@ class TestGetYoutubeVideoUseCase:
         url = "https://www.youtube.com/watch?v=r6Xg8ldqC_4"
 
         youtube_video_service_mock.download = AsyncMock(return_value=VideoSource.from_dict(VIDEO_SOURCE_DICT))
-
+        
         response = await get_youtube_video_usecase.get(url)
 
         assert response.success
         assert response.body.to_dict() == VIDEO_SOURCE_DICT
 
+    @pytest.mark.asyncio
+    async def test_should_returns_a_response_with_error_when_url_is_incorrect(self, get_youtube_video_usecase, 
+                                                                        youtube_video_service_mock):
+        youtube_video_service_mock.download = AsyncMock(side_effect=Exception("any_error"))
+        url = "invalid_url"
+
+        response = await get_youtube_video_usecase.get(url)
+
+        assert not response.success
+        assert response.body == "any_error"
