@@ -1,14 +1,8 @@
-
-
-from typing import Union
-from unittest import mock 
-from unittest.mock import AsyncMock, MagicMock, Mock
 import pytest
-
 import pytest_asyncio
+from unittest.mock import AsyncMock
 from domain.services.mp3_file.mp3_file_service import Mp3FileService
 from domain.services.mp3_file.mp3_file_validator_interface import Mp3FileValidatorInterface
-
 
 
 class TestMp3FileService:
@@ -39,7 +33,6 @@ class TestMp3FileService:
         expected_error = Exception("validation error")
 
         mp3_file_validator_stub.validate = AsyncMock(side_effect=expected_error)
-
     
         error = await mp3_file_service.validate_mp3_file("ANY_PATH")
         
