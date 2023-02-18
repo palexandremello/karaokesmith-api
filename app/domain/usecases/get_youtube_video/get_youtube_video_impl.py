@@ -11,9 +11,9 @@ class GetYoutubeVideoUseCase(GetYoutubeVideoUseCaseInterface):
     def __init__(self, youtube_video_service: YoutubeVideoServiceInterface) -> None:
         self.youtube_video_service = youtube_video_service
 
-    def get(self, url: str) -> UseCaseResponse[VideoSource]:
+    async def get(self, url: str) -> UseCaseResponse[VideoSource]:
         try:
-            video = self.youtube_video_service.download(url)
+            video = await self.youtube_video_service.download(url)
 
             return UseCaseResponse(success=True, body=video)
         

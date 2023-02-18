@@ -7,5 +7,5 @@ from domain.utils.use_case_response import UseCaseResponse
 class GetYoutubeVideoUseCaseInterface(ABC):
 
     @abstractmethod
-    def get(self, url: str) -> UseCaseResponse[VideoSource]:
+    async def get(self, url: str) -> UseCaseResponse[VideoSource]:
         pass

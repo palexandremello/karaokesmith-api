@@ -10,7 +10,7 @@ from domain.utils.use_case_response import UseCaseResponse
 class TestVideoToAudioConverterUseCase:
 
     @pytest.fixture
-    def video_converter_service_stub(self):
+    def video_converter_service_stub(self) -> VideoConverterServiceInterface:
         return Mock(spec=VideoConverterServiceInterface)
     
 

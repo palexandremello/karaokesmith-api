@@ -13,7 +13,7 @@ VIDEO_SOURCE_DICT = {"title": "School Food Punishment - RPG",
 
 class YoutubeVideoServiceStub(YoutubeVideoServiceInterface):
 
-    def download(self, url: str) -> VideoSource:
+    async def download(self, url: str) -> VideoSource:
         return VideoSource.from_dict(VIDEO_SOURCE_DICT)
     
 
@@ -22,17 +22,17 @@ class YoutubeVideoServiceStub(YoutubeVideoServiceInterface):
 class TestGetYoutubeVideoUseCase:
 
     @pytest.fixture
-    def youtube_video_service_mock(self):
+    async def youtube_video_service_mock(self):
         return YoutubeVideoServiceStub()
     
     @pytest.fixture
-    def get_youtube_video_usecase(self, youtube_video_service_mock):
+    async def get_youtube_video_usecase(self, youtube_video_service_mock):
         return GetYoutubeVideoUseCase(youtube_video_service_mock)
     
-    def test_get_youtube_video_with_a_valid_url(self, get_youtube_video_usecase):
+    async def test_get_youtube_video_with_a_valid_url(self, get_youtube_video_usecase):
         url = "https://www.youtube.com/watch?v=r6Xg8ldqC_4"
 
-        response = get_youtube_video_usecase.get(url)
+        response = await get_youtube_video_usecase.get(url)
 
         assert response.success
         assert response.body.to_dict() == VIDEO_SOURCE_DICT
