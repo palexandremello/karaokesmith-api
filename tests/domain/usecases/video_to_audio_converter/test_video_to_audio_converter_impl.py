@@ -36,3 +36,19 @@ class TestVideoToAudioConverterUseCase:
         assert isinstance(response, UseCaseResponse)
         assert response.success
         assert response.body == audio
+
+
+    @pytest.mark.asyncio
+    async def test_should_return_an_response_with_Exception_when_video_converter_has_failed(self, video_to_audio_usecase,
+                                                                                      video_converter_service_stub):
+        
+        video = VideoSource(title="Real Estate - Paper Cup", thumbnail_url="any_thumbnail_url", path="any_path")
+        error_message = "Error during audio conversion"
+        error = Exception(error_message)
+
+        video_converter_service_stub.execute = AsyncMock(side_effect=error)
+
+        response = await video_to_audio_usecase.convert(video)
+
+        assert response.success == False
+        assert response.body == error_message
