@@ -6,5 +6,5 @@ from typing import Union
 class Mp3FileValidatorInterface(ABC):
 
     @abstractmethod
-    def validate(cls, path: str) -> Union[None, Exception]:
+    async def validate(cls, path: str) -> Union[None, Exception]:
         pass
