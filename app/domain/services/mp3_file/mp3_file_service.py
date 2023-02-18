@@ -8,9 +8,9 @@ class Mp3FileService(Mp3FileServiceInterface):
         self.validator = validator
     
 
-    def validate_mp3_file(self, path: str) -> Union[Exception, None]:
+    async def validate_mp3_file(self, path: str) -> Union[Exception, None]:
         try:
-            self.validator.validate(path)
+            await self.validator.validate(path)
                     
         except Exception as error:
             return error
