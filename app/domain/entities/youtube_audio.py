@@ -9,9 +9,9 @@ class YoutubeAudio:
 
 
     @classmethod
-    def from_dict(cls, dictionary: dict):
+    def from_dict(cls, dictionary: dict) -> "YoutubeAudio":
         return cls(**dictionary)
 
     
-    def to_dict(self):
+    def to_dict(self) -> dict:
         return dataclasses.asdict(self)

@@ -11,8 +11,8 @@ class VideoSource:
 
 
     @classmethod
-    def from_dict(cls, dictionary: dict):
+    def from_dict(cls, dictionary: dict) -> "VideoSource":
         return cls(**dictionary)
     
-    def to_dict(self):
+    def to_dict(self) -> dict:
         return asdict(self)

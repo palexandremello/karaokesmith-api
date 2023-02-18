@@ -13,11 +13,11 @@ class AudioMedia:
     audio_format: AudioFormat
 
     @classmethod
-    def from_dict(cls, dictionary: dict):
+    def from_dict(cls, dictionary: dict) -> "AudioMedia":
         dictionary['audio_format'] = AudioFormat(dictionary['audio_format'])
         return cls(**dictionary)
     
-    def to_dict(self):
+    def to_dict(self) -> dict:
         dictionary = asdict(self)
         dictionary['audio_format'] = self.audio_format.value
         return dictionary
