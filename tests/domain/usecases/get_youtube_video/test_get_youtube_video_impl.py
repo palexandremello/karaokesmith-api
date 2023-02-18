@@ -37,12 +37,12 @@ class TestGetYoutubeVideoUseCase:
         assert response.success
         assert response.body.to_dict() == VIDEO_SOURCE_DICT
 
-    def test_should_returns_a_response_with_error_when_url_is_incorrect(self, get_youtube_video_usecase, 
+    async def test_should_returns_a_response_with_error_when_url_is_incorrect(self, get_youtube_video_usecase, 
                                                                         youtube_video_service_mock):
         youtube_video_service_mock.download = MagicMock(side_effect=Exception("any_error"))
         url = "invalid_url"
 
-        response = get_youtube_video_usecase.get(url)
+        response = await get_youtube_video_usecase.get(url)
 
         assert not response.success
         assert response.body == "any_error"
