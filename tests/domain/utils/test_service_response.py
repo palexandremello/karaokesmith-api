@@ -18,3 +18,12 @@ class TestServiceResponse:
         dict_to_be_assert = sut.to_dict()
 
         assert dict_to_be_assert == error
+
+
+
+    def test_should_be_able_to_return_a_dict_response_when_service_is_successful(self, successful):
+        sut = ServiceResponse(success=successful["success"], error_message=successful["error_message"])
+
+        dict_to_be_assert = sut.to_dict()
+
+        assert dict_to_be_assert == successful
