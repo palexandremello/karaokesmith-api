@@ -40,4 +40,3 @@ class TestFilesystemMp3FileValidator:
     async def test_should_return_exception_when_mp3_mime_type_is_incorrect(self, validator, os_exists_mock):
         with pytest.raises(ValueError):
             await validator.validate("any_path")
-

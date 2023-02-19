@@ -15,12 +15,9 @@ class FileSystemMp3FileValidator(Mp3FileValidatorInterface):
         
         if not path.endswith(self.mime_type):
             raise ValueError("File is not an MP3 file")
-        try:
            
-           async with aiofiles.open(path, mode='rb') as f:
-               data = await f.read(10)
-               if not data[:3] == self.__mp3_metadata:
-                   raise ValueError("File is not a valid MP3 file")
-                   
-        except Exception:
-            raise ValueError("MP3 file is broken")
+        async with aiofiles.open(path, mode='rb') as f:
+            data = await f.read(10)
+            if not data[:3] == self.__mp3_metadata:
+                raise ValueError("File is not a valid MP3 file")
+                
