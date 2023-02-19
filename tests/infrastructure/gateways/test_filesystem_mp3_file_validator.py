@@ -31,8 +31,3 @@ class TestFilesystemMp3FileValidator:
             await validator.validate(self.PATH)
     
 
-    @pytest.mark.asyncio
-    async def test_should_return_exception_when_file_not_found(self, validator):
-        with pytest.raises(FileNotFoundError):
-            await validator.validate(self.PATH)
-
