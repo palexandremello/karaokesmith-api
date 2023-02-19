@@ -29,4 +29,10 @@ class TestFilesystemMp3FileValidator:
         
         with patch('aiofiles.threadpool.sync_open', mock_open(read_data=b'ID3')) as open_mock:
             await validator.validate(self.PATH)
+    
+
+    @pytest.mark.asyncio
+    async def test_should_return_exception_when_file_not_found(self, validator):
+        with pytest.raises(FileNotFoundError):
+            await validator.validate(self.PATH)
 
