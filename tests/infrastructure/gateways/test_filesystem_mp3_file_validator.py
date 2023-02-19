@@ -31,3 +31,8 @@ class TestFilesystemMp3FileValidator:
             await validator.validate(self.PATH)
     
 
+    @pytest.mark.asyncio
+    async def test_should_raises_FileNotFoundError_when_path_is_incorrect(self, validator):
+        with pytest.raises(FileNotFoundError):
+            await validator.validate(self.PATH)
+
