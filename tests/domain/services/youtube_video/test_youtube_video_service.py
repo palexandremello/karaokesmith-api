@@ -36,3 +36,14 @@ class TestYoutubeVideoService:
         video_metadata = await  youtube_video_service.get_info(url=self.URL)
 
         assert video_metadata == self.EXPECTED_VIDEO_INFO
+
+    
+    @pytest.mark.asyncio
+    async def test_should_raises_KeyError_when_is_unable_to_get_video_info(self,
+                                                                           youtube_video_downloader_stub: YoutubeDownloaderInterface,
+                                                                           youtube_video_service: YoutubeVideoServiceInterface):
+        
+        youtube_video_downloader_stub.get_video_info = AsyncMock(return_value={})
+
+        with pytest.raises(KeyError):
+            await youtube_video_service.get_info(self.URL)
