@@ -10,3 +10,4 @@ class YoutubeVideoServiceInterface(ABC):
     @abstractmethod
     async def download(self, url: str) -> VideoSource:
         pass
+
