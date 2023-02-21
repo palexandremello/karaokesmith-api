@@ -23,7 +23,7 @@ class YtDlpVideoDownloader(YoutubeDownloaderInterface):
                 None, lambda: self.youtube_dl.extract_info(video_url, download=False)
             )
 
-        if result.keys() is None:
+        if not result.keys():
             raise KeyError("any video metadata")
 
         return VideoMetadata(title=result["title"], thumbnail_url=result["thumbnail"])

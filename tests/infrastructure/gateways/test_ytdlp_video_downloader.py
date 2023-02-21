@@ -2,8 +2,6 @@ from typing import Dict
 from unittest.mock import patch
 import pytest
 import pytest_asyncio
-from domain.entities.video_metadata import VideoMetadata
-
 from infrastructure.gateways.ytdlp_video_downloader import YtDlpVideoDownloader
 
 
@@ -36,5 +34,5 @@ class TestYtDlpVideoDownloader:
         ytdlp_video_downloader_stub: YtDlpVideoDownloader,
     ):
         with patch("yt_dlp.YoutubeDL.extract_info", return_value={}):
-            with pytest.raises(KeyError):
+            with pytest.raises(KeyError, match="any video metadata"):
                 await ytdlp_video_downloader_stub.get_video_info("any_video_url")
