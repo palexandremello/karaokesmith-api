@@ -1,9 +1,10 @@
 from abc import ABC, abstractmethod
 from domain.entities.video_source import VideoSource
+from domain.utils.response import Response
 
 
 class YoutubeVideoServiceInterface(ABC):
 
     @abstractmethod
-    async def download(self, url: str) -> VideoSource:
+    async def download(self, url: str) -> Response[VideoSource]:
         pass

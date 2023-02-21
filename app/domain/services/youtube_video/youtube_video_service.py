@@ -19,4 +19,4 @@ class YoutubeVideoService(YoutubeVideoServiceInterface):
                                 path=path)
             return Response(success=True, body=video)
         except KeyError as error:
-            return Response(success=True, body=str(error))
+            return Response(success=False, body=error)

@@ -1,11 +1,10 @@
 
 
-from unittest.mock import AsyncMock
 import pytest
 import pytest_asyncio
+from unittest.mock import AsyncMock
 from domain.entities.video_metadata import VideoMetadata
 from domain.entities.video_source import VideoSource
-
 from domain.services.youtube_video.youtube_video_downloader_interface import YoutubeDownloaderInterface
 from domain.services.youtube_video.youtube_video_service import YoutubeVideoService
 from domain.services.youtube_video.youtube_video_service_interface import YoutubeVideoServiceInterface
@@ -39,3 +38,17 @@ class TestYoutubeVideoService:
 
         assert response == self.EXPECTED_RESPONSE
 
+    
+    @pytest.mark.asyncio
+    async def test_should_be_able_to_return_response_with_error_when_get_video_throws(self, 
+                                youtube_video_downloader_stub: YoutubeDownloaderInterface,
+                                youtube_video_service: YoutubeVideoServiceInterface):
+        
+        error_message = "any_error"
+        error = KeyError(error_message)
+        youtube_video_downloader_stub.get_video_info = AsyncMock(side_effect=error)
+
+        response = await youtube_video_service.download(url=self.URL)
+        
+        assert response.success is False
+        assert response.body == error
