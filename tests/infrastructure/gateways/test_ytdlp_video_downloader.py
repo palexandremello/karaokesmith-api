@@ -29,3 +29,12 @@ class TestYtDlpVideoDownloader:
 
         assert video_metadata.title == "mocked_video_title"
         assert video_metadata.thumbnail_url == "mocked_thumbnail_url"
+
+    @pytest.mark.asyncio
+    async def test_should_raises_KeyError_when_extract_info_returns_empty_dict(
+        self,
+        ytdlp_video_downloader_stub: YtDlpVideoDownloader,
+    ):
+        with patch("yt_dlp.YoutubeDL.extract_info", return_value={}):
+            with pytest.raises(KeyError):
+                await ytdlp_video_downloader_stub.get_video_info("any_video_url")
