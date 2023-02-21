@@ -21,4 +21,4 @@ class VideoConverterService(VideoConverterServiceInterface):
            return Response(success=True, body=audio_media)
         
         except Exception as error:
-            return Response(success=False, body=error)
+            return Response(success=False, body=str(error))

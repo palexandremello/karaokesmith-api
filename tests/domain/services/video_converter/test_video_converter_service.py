@@ -20,7 +20,7 @@ class TestVideoConverterService:
     
 
     @pytest.mark.asyncio
-    async def test_should_be_able_to_return_a_response_when_convert_is_successful(self,
+    async def test_should_be_able_to_return_a_response_when_execute_is_successful(self,
                                                                             converter_stub: ConverterInterface,
                                                                             video_converter_service: VideoConverterServiceInterface):
         
@@ -34,3 +34,15 @@ class TestVideoConverterService:
 
         assert response.success
         assert response.body == AudioMedia(path="any_path", audio_format=AudioFormat.MP3)
+
+
+    @pytest.mark.asyncio
+    async def test_should_be_able_to_return_a_response_when_execute_throws(self,
+                                                                            converter_stub: ConverterInterface,
+                                                                            video_converter_service: VideoConverterServiceInterface):
+        converter_stub.execute = AsyncMock(side_effect=Exception("any_error"))
+
+        response = await video_converter_service.execute("any_video_source")
+
+        assert not response.success
+        assert response.body == "any_error"
