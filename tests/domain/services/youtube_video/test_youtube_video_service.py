@@ -34,7 +34,7 @@ class TestYoutubeVideoService:
                                                                                             thumbnail_url="any_thumbnail_url"))
         youtube_video_downloader_stub.get_video = AsyncMock(return_value="any_path")
 
-        response = await  youtube_video_service.download(url=self.URL)
+        response = await  youtube_video_service.download(video_url=self.URL)
 
         assert response == self.EXPECTED_RESPONSE
 
@@ -48,7 +48,7 @@ class TestYoutubeVideoService:
         error = KeyError(error_message)
         youtube_video_downloader_stub.get_video_info = AsyncMock(side_effect=error)
 
-        response = await youtube_video_service.download(url=self.URL)
+        response = await youtube_video_service.download(video_url=self.URL)
         
         assert response.success is False
         assert response.body == error
@@ -65,7 +65,7 @@ class TestYoutubeVideoService:
                                                                                             thumbnail_url="any_thumbnail_url"))
         youtube_video_downloader_stub.get_video = AsyncMock(side_effect=error)
 
-        response = await youtube_video_service.download(url=self.URL)
+        response = await youtube_video_service.download(video_url=self.URL)
         
         assert response.success is False
         assert response.body == error

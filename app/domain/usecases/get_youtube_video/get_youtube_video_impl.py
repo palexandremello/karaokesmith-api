@@ -13,7 +13,7 @@ class GetYoutubeVideoUseCase(GetYoutubeVideoUseCaseInterface):
 
     async def get(self, video_url: str) -> Response[VideoSource]:
         try:
-            video = await self.youtube_video_service.download(url)
+            video = await self.youtube_video_service.download(video_url)
 
             return Response(success=True, body=video)
         
