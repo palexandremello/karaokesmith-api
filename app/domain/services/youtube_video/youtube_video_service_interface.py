@@ -6,5 +6,5 @@ from domain.utils.response import Response
 class YoutubeVideoServiceInterface(ABC):
 
     @abstractmethod
-    async def download(self, url: str) -> Response[VideoSource]:
+    async def download(self, video_url: str) -> Response[VideoSource]:
         pass
