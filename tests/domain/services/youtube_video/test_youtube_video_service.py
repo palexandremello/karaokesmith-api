@@ -40,13 +40,30 @@ class TestYoutubeVideoService:
 
     
     @pytest.mark.asyncio
-    async def test_should_be_able_to_return_response_with_error_when_get_video_throws(self, 
+    async def test_should_be_able_to_return_response_with_error_when_get_video_inside_download_throws(self, 
                                 youtube_video_downloader_stub: YoutubeDownloaderInterface,
                                 youtube_video_service: YoutubeVideoServiceInterface):
         
         error_message = "any_error"
         error = KeyError(error_message)
         youtube_video_downloader_stub.get_video_info = AsyncMock(side_effect=error)
+
+        response = await youtube_video_service.download(url=self.URL)
+        
+        assert response.success is False
+        assert response.body == error
+
+    @pytest.mark.asyncio
+    async def test_should_be_able_to_return_response_with_error_when_get_video_inside_download_throws(self, 
+                                youtube_video_downloader_stub: YoutubeDownloaderInterface,
+                                youtube_video_service: YoutubeVideoServiceInterface):
+        
+        error_message = "any_error"
+        error = KeyError(error_message)
+        
+        youtube_video_downloader_stub.get_video_info = AsyncMock(return_value=VideoMetadata(title="School Food Punishment - You May Crawl",
+                                                                                            thumbnail_url="any_thumbnail_url"))
+        youtube_video_downloader_stub.get_video = AsyncMock(side_effect=error)
 
         response = await youtube_video_service.download(url=self.URL)
         
