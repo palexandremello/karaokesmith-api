@@ -10,7 +10,12 @@ class YoutubeVideoService(YoutubeVideoServiceInterface):
     
 
     async def download(self, url: str) -> VideoSource:
-        return url    
+        try:
+            video_metadata = self.get_info(url)
+            video = self.youtube_video_downloader.get_video(url)
+            return video
+        except KeyError:
+            return "Error"
 
     async def get_info(self, url: str) -> dict:
         video_metadata = await  self.youtube_video_downloader.get_video_info(url)

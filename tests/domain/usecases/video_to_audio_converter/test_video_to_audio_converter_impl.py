@@ -6,7 +6,7 @@ from domain.entities.audio_media import AudioFormat, AudioMedia
 from domain.entities.video_source import VideoSource
 from domain.services.video_converter.video_converter_service_interface import VideoConverterServiceInterface
 from domain.usecases.video_to_audio_converter.video_to_audio_converter_impl import VideoToAudioConverterUseCase
-from domain.utils.use_case_response import UseCaseResponse
+from domain.utils.response import Response
 
 
 class TestVideoToAudioConverterUseCase:
@@ -33,7 +33,7 @@ class TestVideoToAudioConverterUseCase:
         response = await video_to_audio_usecase.convert(video)
 
 
-        assert isinstance(response, UseCaseResponse)
+        assert isinstance(response, Response)
         assert response.success
         assert response.body == audio
 

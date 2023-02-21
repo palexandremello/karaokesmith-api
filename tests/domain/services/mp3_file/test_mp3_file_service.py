@@ -3,7 +3,7 @@ import pytest_asyncio
 from unittest.mock import AsyncMock
 from domain.services.mp3_file.mp3_file_service import Mp3FileService
 from domain.services.mp3_file.mp3_file_validator_interface import Mp3FileValidatorInterface
-from domain.utils.service_response import ServiceResponse
+from domain.utils.response import Response
 
 
 class TestMp3FileService:
@@ -14,11 +14,11 @@ class TestMp3FileService:
     
     @pytest.fixture
     def correct_validate_response(self):
-        return ServiceResponse(success=True, error_message=None)
+        return Response(success=True, body=None)
     
     @pytest.fixture
     def incorrect_validate_response(self):
-        return ServiceResponse(success=False, error_message="MP3 file is invalid")
+        return Response(success=False, body="MP3 file is invalid")
 
     @pytest_asyncio.fixture
     def mp3_file_service(self, mp3_file_validator_stub):

@@ -1,11 +1,11 @@
 from abc import ABC, abstractmethod
 from domain.entities.video_source import VideoSource
 
-from domain.utils.use_case_response import UseCaseResponse
+from domain.utils.response import Response
 
 
 class GetYoutubeVideoUseCaseInterface(ABC):
 
     @abstractmethod
-    async def get(self, url: str) -> UseCaseResponse[VideoSource]:
+    async def get(self, url: str) -> Response[VideoSource]:
         pass
