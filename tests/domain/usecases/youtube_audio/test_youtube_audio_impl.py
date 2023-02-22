@@ -1,12 +1,62 @@
+from unittest.mock import AsyncMock
+import pytest
+import pytest_asyncio
+from domain.entities.audio_media import AudioMedia
+from domain.entities.mp3_file import Mp3File
+from domain.entities.video_source import VideoSource
+from domain.entities.youtube_audio import YoutubeAudio
+from domain.usecases.get_youtube_video.get_youtube_video_interface import GetYoutubeVideoUseCaseInterface
+
+from domain.usecases.video_to_audio_converter.video_to_audio_converter_interface import (
+    VideoToAudioConverterUseCaseInterface,
+)
+from domain.usecases.youtube_audio.youtube_audio_impl import YoutubeAudioUseCase
+from domain.utils.response import Response
 
 
-from domain.usecases.youtube_audio.youtube_audio_impl import YoutubeAudioUseCaseImpl
-from domain.usecases.youtube_audio.youtube_audio_interface import YoutubeAudioUseCaseInterface
+class TestYoutubeAudioUseCase:
+    EXPECTED_YOUTUBE_AUDIO = YoutubeAudio(
+        video_url="any_video_url", mp3_file=Mp3File(name="any_title", path="any_path")
+    )
 
+    @pytest.fixture
+    def mock_youtube_video_usecase(self):
+        video_source = VideoSource(title="any_title", thumbnail_url="any_thumbnail", path="any_path")
+        return Response(success=True, body=video_source)
 
+    @pytest.fixture
+    def mock_video_to_audio_converter_usecase(self):
+        audio_media = AudioMedia(path="any_path", audio_format="mp3")
+        return Response(success=True, body=audio_media)
 
-def test_should_YoutubeAudioUseCaseImpl_same_instance_of_YoutubeAudioUseCaseInterface():
+    @pytest_asyncio.fixture
+    def get_youtube_video_usecase_stub(self) -> GetYoutubeVideoUseCaseInterface:
+        return AsyncMock(spec=GetYoutubeVideoUseCaseInterface)
 
-    sut = YoutubeAudioUseCaseImpl("any_usecase", "any_usecase")
+    @pytest_asyncio.fixture
+    def video_to_audio_converter_usecase_stub(self) -> VideoToAudioConverterUseCaseInterface:
+        return AsyncMock(spec=VideoToAudioConverterUseCaseInterface)
 
-    assert isinstance(sut, YoutubeAudioUseCaseInterface)
+    @pytest.fixture
+    def youtube_audio_usecase(
+        self, get_youtube_video_usecase_stub, video_to_audio_converter_usecase_stub
+    ) -> YoutubeAudioUseCase:
+        return YoutubeAudioUseCase(get_youtube_video_usecase_stub, video_to_audio_converter_usecase_stub)
+
+    @pytest.mark.asyncio
+    async def test_should_be_able_to_return_response_with_YoutubeAudio_when_excute_is_successful(
+        self,
+        get_youtube_video_usecase_stub: GetYoutubeVideoUseCaseInterface,
+        video_to_audio_converter_usecase_stub: VideoToAudioConverterUseCaseInterface,
+        youtube_audio_usecase: YoutubeAudioUseCase,
+        mock_youtube_video_usecase: Response[VideoSource],
+        mock_video_to_audio_converter_usecase: Response[AudioMedia],
+    ):
+        get_youtube_video_usecase_stub.get = AsyncMock(return_value=mock_youtube_video_usecase)
+        video_to_audio_converter_usecase_stub.convert = AsyncMock(return_value=mock_video_to_audio_converter_usecase)
+
+        response = await youtube_audio_usecase.execute("any_video_url")
+
+        print(response)
+        assert response.success
+        assert response.body == self.EXPECTED_YOUTUBE_AUDIO
