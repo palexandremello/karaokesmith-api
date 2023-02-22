@@ -1,10 +1,9 @@
 from abc import ABC, abstractmethod
-from typing import Optional
 from domain.entities.youtube_audio import YoutubeAudio
 from domain.utils.response import Response
 
 
 class YoutubeAudioUseCaseInterface(ABC):
     @abstractmethod
-    def execute(cls, video_url: str, name: Optional[str] = None) -> Response[YoutubeAudio]:
+    async def execute(self, video_url: str) -> Response[YoutubeAudio]:
         pass

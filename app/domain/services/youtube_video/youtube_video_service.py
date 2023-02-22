@@ -14,9 +14,7 @@ class YoutubeVideoService(YoutubeVideoServiceInterface):
 
     async def download(self, video_url: str) -> Response[VideoSource]:
         try:
-            video_metadata = await self.youtube_video_downloader.get_video_info(
-                video_url
-            )
+            video_metadata = await self.youtube_video_downloader.get_video_info(video_url)
             path = await self.youtube_video_downloader.get_video(video_url)
             video = VideoSource(
                 title=video_metadata.title,

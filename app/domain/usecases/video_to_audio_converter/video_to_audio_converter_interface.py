@@ -4,8 +4,8 @@ from domain.entities.video_source import VideoSource
 
 from domain.utils.response import Response
 
-class VideoToAudioConverterUseCaseInterface(ABC):
 
+class VideoToAudioConverterUseCaseInterface(ABC):
     @abstractmethod
     async def convert(self, video: VideoSource) -> Response[AudioMedia]:
         pass

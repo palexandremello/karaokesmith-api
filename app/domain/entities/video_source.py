@@ -1,5 +1,3 @@
-
-
 from dataclasses import dataclass, asdict
 
 
@@ -9,10 +7,9 @@ class VideoSource:
     thumbnail_url: str
     path: str
 
-
     @classmethod
     def from_dict(cls, dictionary: dict) -> "VideoSource":
         return cls(**dictionary)
-    
+
     def to_dict(self) -> dict:
         return asdict(self)
