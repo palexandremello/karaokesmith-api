@@ -15,9 +15,9 @@ from domain.utils.response import Response
 
 
 class TestYoutubeAudioUseCase:
-    EXPECTED_YOUTUBE_AUDIO = YoutubeAudio(
-        video_url="any_video_url", mp3_file=Mp3File(name="any_title", path="any_path")
-    )
+    @pytest.fixture
+    def expected_youtube_audio(self):
+        return YoutubeAudio(video_url="any_video_url", mp3_file=Mp3File(name="any_title", path="any_path"))
 
     @pytest.fixture
     def mock_youtube_video_usecase(self):
@@ -51,12 +51,12 @@ class TestYoutubeAudioUseCase:
         youtube_audio_usecase: YoutubeAudioUseCase,
         mock_youtube_video_usecase: Response[VideoSource],
         mock_video_to_audio_converter_usecase: Response[AudioMedia],
+        expected_youtube_audio,
     ):
         get_youtube_video_usecase_stub.get = AsyncMock(return_value=mock_youtube_video_usecase)
         video_to_audio_converter_usecase_stub.convert = AsyncMock(return_value=mock_video_to_audio_converter_usecase)
 
         response = await youtube_audio_usecase.execute("any_video_url")
 
-        print(response)
         assert response.success
-        assert response.body == self.EXPECTED_YOUTUBE_AUDIO
+        assert response.body == expected_youtube_audio
