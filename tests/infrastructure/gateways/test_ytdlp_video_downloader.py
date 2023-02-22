@@ -52,3 +52,13 @@ class TestYtDlpVideoDownloader:
             path = await ytdlp_video_downloader_stub.get_video("any_video_url")
 
             assert path == "any_path"
+
+    @pytest.mark.asyncio
+    async def test_should_raise_FileExistsError_when_get_video_throws(
+        self, ytdlp_video_downloader_stub: YtDlpVideoDownloader
+    ):
+        with patch("yt_dlp.YoutubeDL.download", return_value=[]):
+            with pytest.raises(
+                FileExistsError, match="it was not able to retrieve video content"
+            ):
+                await ytdlp_video_downloader_stub.get_video("any_video_url")
