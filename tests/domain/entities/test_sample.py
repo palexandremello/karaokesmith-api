@@ -32,3 +32,18 @@ class TestSample:
         sut = Sample.from_dict(sample_dictionary)
 
         assert sut.to_dict() == self.EXPECTED_SAMPLE_DICTIONARY
+
+    def test_should_be_able_to_create_a_Sample_from_dict_and_return_dict_representation_when_is_YoutubeAudio(
+        self, youtube_audio_data
+    ):
+        sample_dictionary = {"name": "any_artist", "minutes_per_sample": 5, "audio_option": youtube_audio_data}
+        expected_dictionary_with_youtube_audio = {
+            "name": "any_artist",
+            "minutes_per_sample": 5,
+            "audio_option": youtube_audio_data.to_dict(),
+            "path": None,
+        }
+        sut = Sample.from_dict(sample_dictionary)
+
+        assert sut.name == self.EXPECTED_SAMPLE_DICTIONARY["name"]
+        assert sut.to_dict() == expected_dictionary_with_youtube_audio
