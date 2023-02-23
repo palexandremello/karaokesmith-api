@@ -70,7 +70,7 @@ class TestYoutubeAudioUseCase:
         assert response.body == expected_youtube_audio
 
     @pytest.mark.asyncio
-    async def test_should_be_able_to_return_response_with_error_when_execute_throws(
+    async def test_should_be_able_to_return_response_with_error_when_GetYoutubeVideoUseCase_throws(
         self,
         get_youtube_video_usecase_stub: GetYoutubeVideoUseCaseInterface,
         youtube_audio_usecase: YoutubeAudioUseCase,
