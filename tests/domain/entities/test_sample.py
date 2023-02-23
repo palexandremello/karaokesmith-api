@@ -9,7 +9,7 @@ class TestSample:
     EXPECTED_SAMPLE_DICTIONARY = {
         "name": "any_artist",
         "minutes_per_sample": 5,
-        "audio_option": Mp3File(name="any_artist", path="any_path"),
+        "audio_option": {"name": "any_artist", "path": "any_path"},
         "path": None,
     }
 
@@ -26,3 +26,9 @@ class TestSample:
         sut = Sample.from_dict(sample_dictionary)
 
         assert sut.name == self.EXPECTED_SAMPLE_DICTIONARY["name"]
+
+    def test_should_be_able_to_returns_a_dict_from_Sample(self, mp3_file_data):
+        sample_dictionary = {"name": "any_artist", "minutes_per_sample": 5, "audio_option": mp3_file_data}
+        sut = Sample.from_dict(sample_dictionary)
+
+        assert sut.to_dict() == self.EXPECTED_SAMPLE_DICTIONARY
