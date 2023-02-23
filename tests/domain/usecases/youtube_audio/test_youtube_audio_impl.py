@@ -73,12 +73,27 @@ class TestYoutubeAudioUseCase:
     async def test_should_be_able_to_return_response_with_error_when_execute_throws(
         self,
         get_youtube_video_usecase_stub: GetYoutubeVideoUseCaseInterface,
-        video_to_audio_converter_usecase_stub: VideoToAudioConverterUseCaseInterface,
         youtube_audio_usecase: YoutubeAudioUseCase,
         youtube_video_usecase_throws,
-        video_to_audio_converter_usecase_throws,
     ):
         get_youtube_video_usecase_stub.get = AsyncMock(return_value=youtube_video_usecase_throws)
+        response = await youtube_audio_usecase.execute("any_video_url")
+
+        assert not response.success
+        assert response.body == "any_error"
+
+    @pytest.mark.asyncio
+    async def test_should_be_able_to_return_response_with_error_when_VideoToAudioConverterUseCase_throws(
+        self,
+        get_youtube_video_usecase_stub: GetYoutubeVideoUseCaseInterface,
+        video_to_audio_converter_usecase_stub: VideoToAudioConverterUseCaseInterface,
+        youtube_audio_usecase: YoutubeAudioUseCase,
+        mock_youtube_video_usecase,
+        video_to_audio_converter_usecase_throws,
+    ):
+        get_youtube_video_usecase_stub.get = AsyncMock(return_value=mock_youtube_video_usecase)
+        video_to_audio_converter_usecase_stub.convert = AsyncMock(return_value=video_to_audio_converter_usecase_throws)
+
         response = await youtube_audio_usecase.execute("any_video_url")
 
         assert not response.success
