@@ -57,3 +57,18 @@ class TestCreateSampleFromMp3:
 
         assert not response.success
         assert response.body == "any_error"
+
+    @pytest.mark.asyncio
+    async def test_should_return_response_with_error_when_create_sample_service_fails(
+        self,
+        mp3_file_usecase_stub,
+        create_sample_service_stub,
+        create_sample_from_mp3_usecase,
+    ):
+        mp3_file_usecase_stub.execute = AsyncMock(return_value=Response(success=True, body=self.mp3_file))
+        create_sample_service_stub.execute = AsyncMock(return_value=Response(success=False, body="any_sample_error"))
+
+        response = await create_sample_from_mp3_usecase.execute(self.mp3_file)
+
+        assert not response.success
+        assert response.body == "any_sample_error"
