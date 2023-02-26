@@ -60,3 +60,16 @@ class TestCreateSampleFromYoutubeUseCase:
 
         assert response.success
         assert response.body == "any_body"
+
+    @pytest.mark.asyncio
+    async def test_should_return_response_with_error_when_youtube_audio_fails(
+        self,
+        youtube_audio_usecase_stub: YoutubeAudioUseCaseInterface,
+        create_sample_from_youtube_usecase: CreateSampleFromYoutubeUseCase,
+    ):
+        youtube_audio_usecase_stub.execute = AsyncMock(return_value=Response(success=False, body="any_error"))
+
+        response = await create_sample_from_youtube_usecase.execute(self.VIDEO_URL)
+
+        assert not response.success
+        assert response.body == "any_error"
