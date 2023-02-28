@@ -17,9 +17,7 @@ class TestYoutubeVideoService:
     URL = "https://www.youtube.com/watch?v=CHKk8OozMfo"
     EXPECTED_RESPONSE = Response(
         success=True,
-        body=VideoSource(
-            "School Food Punishment - You May Crawl", "any_thumbnail_url", "any_path"
-        ),
+        body=VideoSource("School Food Punishment - You May Crawl", "any_thumbnail_url", "any_path"),
     )
 
     @pytest_asyncio.fixture
@@ -27,12 +25,8 @@ class TestYoutubeVideoService:
         return AsyncMock(spec=YoutubeDownloaderInterface)
 
     @pytest_asyncio.fixture
-    def youtube_video_service(
-        self, youtube_video_downloader_stub
-    ) -> YoutubeVideoServiceInterface:
-        return YoutubeVideoService(
-            youtube_video_downloader=youtube_video_downloader_stub
-        )
+    def youtube_video_service(self, youtube_video_downloader_stub) -> YoutubeVideoServiceInterface:
+        return YoutubeVideoService(youtube_video_downloader=youtube_video_downloader_stub)
 
     @pytest.mark.asyncio
     async def test_should_be_able_to_return_a_response_with_VideoSource_entity_when_YoutubeVideoService_successful(
@@ -53,7 +47,7 @@ class TestYoutubeVideoService:
         assert response == self.EXPECTED_RESPONSE
 
     @pytest.mark.asyncio
-    async def test_should_be_able_to_return_response_with_error_when_get_video_inside_download_throws(
+    async def test_should_be_able_to_return_response_with_error_when_get_video_info_inside_download_throws(
         self,
         youtube_video_downloader_stub: YoutubeDownloaderInterface,
         youtube_video_service: YoutubeVideoServiceInterface,

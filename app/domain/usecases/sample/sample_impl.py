@@ -27,7 +27,7 @@ class SampleUseCase(SampleUseCaseInterface):
         if upload_mp3_file:
             sample_response = await self.create_sample_from_mp3_usecase.execute(upload_mp3_file, minutes_per_sample)
 
-        else:
+        elif video_url:
             sample_response = await self.create_sample_from_youtube_usecase.execute(video_url)
 
         if not sample_response.success:
