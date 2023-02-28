@@ -16,13 +16,15 @@ class CreateSampleFromYoutubeUseCase(CreateSampleFromYoutubeUseCaseInterface):
         self.youtube_audio_usecase = youtube_audio_usecase
         self.create_sample_service = create_sample_service
 
-    async def execute(self, video_url: str) -> Response[Sample]:
+    async def execute(self, video_url: str, minutes_per_sample: int) -> Response[Sample]:
         youtube_audio_response = await self.youtube_audio_usecase.execute(video_url)
 
         if not youtube_audio_response.success:
             return Response(success=False, body=youtube_audio_response.body)
 
-        sample_response = await self.create_sample_service.execute(youtube_audio_response.body.mp3_file)
+        sample_response = await self.create_sample_service.execute(
+            youtube_audio_response.body.mp3_file, minutes_per_sample
+        )
 
         if not sample_response.success:
             return Response(success=False, body=sample_response.body)

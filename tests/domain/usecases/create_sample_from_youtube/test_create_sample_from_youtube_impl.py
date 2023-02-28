@@ -2,6 +2,7 @@ from unittest.mock import AsyncMock
 import pytest
 import pytest_asyncio
 from domain.entities.mp3_file import Mp3File
+from domain.entities.sample import Sample
 from domain.entities.youtube_audio import YoutubeAudio
 
 from domain.services.create_sample_service.create_sample_service_interface import CreateSampleServiceInterface
@@ -15,8 +16,14 @@ from domain.usecases.youtube_audio.youtube_audio_interface import YoutubeAudioUs
 from domain.utils.response import Response
 
 
+class CreateSampleServiceStub(CreateSampleServiceInterface):
+    async def execute(self, mp3_file: Mp3File, minutes_per_sample: int) -> Response[Sample]:
+        return await super().execute(mp3_file, minutes_per_sample)
+
+
 class TestCreateSampleFromYoutubeUseCase:
     VIDEO_URL = "https://www.youtube.com/watch?v=uVjEcIANv1o"
+    minutes_per_sample = 5
 
     @pytest.fixture
     def youtube_audio(self):
@@ -38,7 +45,7 @@ class TestCreateSampleFromYoutubeUseCase:
 
     @pytest_asyncio.fixture
     def create_sample_service_stub(self):
-        return AsyncMock(spec=CreateSampleServiceInterface)
+        return CreateSampleServiceStub()
 
     @pytest_asyncio.fixture
     def create_sample_from_youtube_usecase(self, youtube_audio_usecase_stub, create_sample_service_stub):
@@ -56,7 +63,7 @@ class TestCreateSampleFromYoutubeUseCase:
 
         create_sample_service_stub.execute = AsyncMock(return_value=Response(success=True, body="any_body"))
 
-        response = await create_sample_from_youtube_usecase.execute(self.VIDEO_URL)
+        response = await create_sample_from_youtube_usecase.execute(self.VIDEO_URL, self.minutes_per_sample)
 
         assert response.success
         assert response.body == "any_body"
@@ -69,7 +76,7 @@ class TestCreateSampleFromYoutubeUseCase:
     ):
         youtube_audio_usecase_stub.execute = AsyncMock(return_value=Response(success=False, body="any_error"))
 
-        response = await create_sample_from_youtube_usecase.execute(self.VIDEO_URL)
+        response = await create_sample_from_youtube_usecase.execute(self.VIDEO_URL, self.minutes_per_sample)
 
         assert not response.success
         assert response.body == "any_error"
@@ -85,7 +92,7 @@ class TestCreateSampleFromYoutubeUseCase:
         youtube_audio_usecase_stub.execute = AsyncMock(return_value=Response(success=True, body=youtube_audio))
         create_sample_service_stub.execute = AsyncMock(return_value=Response(success=False, body="any_sample_error"))
 
-        response = await create_sample_from_youtube_usecase.execute(self.VIDEO_URL)
+        response = await create_sample_from_youtube_usecase.execute(self.VIDEO_URL, self.minutes_per_sample)
 
         assert not response.success
         assert response.body == "any_sample_error"
