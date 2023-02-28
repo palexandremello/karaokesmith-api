@@ -8,6 +8,10 @@ from domain.utils.response import Response
 class SampleUseCaseInterface(ABC):
     @abstractmethod
     async def execute(
-        self, name: Optional[str], minutes_per_sample: int, video_url: Optional[str], upload_mp3_file: Optional[str]
+        self,
+        minutes_per_sample: int,
+        name: Optional[str] = None,
+        video_url: Optional[str] = None,
+        upload_mp3_file: Optional[str] = None,
     ) -> Response[Sample]:
         pass

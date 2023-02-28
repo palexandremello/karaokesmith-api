@@ -18,7 +18,11 @@ class SampleUseCase(SampleUseCaseInterface):
         self.create_sample_from_mp3_usecase = create_sample_from_mp3_usecase
 
     async def execute(
-        self, name: Optional[str], minutes_per_sample: int, video_url: Optional[str], upload_mp3_file: Optional[str]
+        self,
+        minutes_per_sample: int,
+        name: Optional[str] = None,
+        video_url: Optional[str] = None,
+        upload_mp3_file: Optional[str] = None,
     ) -> Response[Sample]:
         if upload_mp3_file:
             sample_response = await self.create_sample_from_mp3_usecase.execute(upload_mp3_file, minutes_per_sample)
