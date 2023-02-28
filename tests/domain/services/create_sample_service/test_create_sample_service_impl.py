@@ -30,7 +30,7 @@ class TestCreateSampleService:
         return CreateSampleService(sampler_stub)
 
     @pytest.mark.asyncio
-    async def test_should_be_able_to_create_a_sample_with_sampler(
+    async def test_should_be_able_to_create_a_response_with_a_list_of_path_of_sample_with_sampler(
         self, sampler_stub, create_sample_service: CreateSampleService
     ):
         sampler_stub.execute = AsyncMock(return_value=self.list_of_samples)
