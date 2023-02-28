@@ -41,3 +41,16 @@ class TestCreateSampleService:
 
         assert sample.success
         assert sample.body.path == self.paths
+
+    @pytest.mark.asyncio
+    async def test_should_return_a_response_with_erro_when_sampler_throws(
+        self, sampler_stub, create_sample_service: CreateSampleService
+    ):
+        sampler_stub.execute = AsyncMock(side_effect=Exception("Any_error"))
+
+        sample = await create_sample_service.execute(
+            mp3_file=Mp3File("roxette - spend my time", "any_path"), minutes_per_sample=5
+        )
+
+        assert not sample.success
+        assert sample.body == "Any_error"
