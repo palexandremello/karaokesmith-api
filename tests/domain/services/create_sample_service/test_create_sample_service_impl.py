@@ -40,7 +40,7 @@ class TestCreateSampleService:
         )
 
         assert sample.success
-        assert sample.body.path == self.paths
+        assert sample.body[0].path == self.paths[0]
 
     @pytest.mark.asyncio
     async def test_should_return_a_response_with_erro_when_sampler_throws(

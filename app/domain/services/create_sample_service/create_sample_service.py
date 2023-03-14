@@ -6,20 +6,15 @@ from domain.utils.response import Response
 
 
 class CreateSampleService(CreateSampleServiceInterface):
-    def __init__(self, sampler: SamplerInterface) -> None:
+    def __init__(
+        self,
+        sampler: SamplerInterface,
+    ) -> None:
         self.sampler = sampler
-        self.__list_path = []
 
     async def execute(self, mp3_file: Mp3File, minutes_per_sample: int) -> Response[Sample]:
         try:
-            list_of_samples = await self.sampler.execute(mp3_file, minutes_per_sample)
-
-            for mp3_file in list_of_samples:
-                self.__list_path.append(mp3_file.path)
-
-            sample = Sample(audio_option=mp3_file, minutes_per_sample=minutes_per_sample, path=self.__list_path)
-
-            return Response(success=True, body=sample)
-
+            samples = await self.sampler.execute(mp3_file, minutes_per_sample)
+            return Response(success=True, body=samples)
         except Exception as error:
             return Response(success=False, body=str(error))
