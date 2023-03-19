@@ -16,8 +16,8 @@ from domain.utils.response import Response
 
 class TestSampleUseCase:
     youtube_audio = YoutubeAudio(video_url="any_url", mp3_file=Mp3File(name="any_artist", path="any_path"))
-    sample = Sample(audio_option=youtube_audio, minutes_per_sample=5)
-    sample_with_mp3 = Sample(audio_option=Mp3File(name="any_artist", path="any_path"), minutes_per_sample=5)
+    sample = Sample(audio_option=youtube_audio)
+    sample_with_mp3 = Sample(audio_option=Mp3File(name="any_artist", path="any_path"))
 
     @pytest_asyncio.fixture
     def create_sample_service_stub(self):

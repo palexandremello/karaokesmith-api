@@ -8,7 +8,7 @@ from domain.services.create_sample_service.sampler_interface import SamplerInter
 class PydubSampler(SamplerInterface):
     def __init__(self) -> None:
         self.samples = []
-        self.temp_dir = f"{os.getcwd()}/samples/"
+        self.__samples_dir = f"{os.getcwd()}/samples/"
 
     def execute(self, mp3_file: Mp3File, minutes_per_sample: int) -> List[Mp3File]:
         audio = AudioSegment.from_file(mp3_file.path, format="mp3")
@@ -22,7 +22,7 @@ class PydubSampler(SamplerInterface):
             end = (each_sample + 1) * samples_size
 
             sample = audio[start:end]
-            sample_name = f"{self.temp_dir}/{mp3_file.name}_{each_sample}.mp3"
+            sample_name = f"{self.__samples_dir}/{mp3_file.name}_{each_sample}.mp3"
 
             path = os.path.join(sample_name)
             mp3_file = Mp3File(name=sample_name, path=path)

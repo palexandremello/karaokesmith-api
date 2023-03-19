@@ -7,9 +7,8 @@ from domain.entities.youtube_audio import YoutubeAudio
 @dataclass
 class Sample:
     audio_option: Union[Mp3File, YoutubeAudio]
-    minutes_per_sample: int
     name: Optional[str] = None
-    path: list[str] = None
+    content: bytes = None
 
     @classmethod
     def from_dict(cls, dictionary: dict) -> "Sample":
