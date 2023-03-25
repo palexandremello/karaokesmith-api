@@ -13,13 +13,15 @@ class CreateSampleFromMp3UseCase(CreateSampleFromMp3UseCaseInterface):
         self.mp3_file_usecase = mp3_file_usecase
         self.create_sample_service = create_sample_service
 
-    async def execute(self, upload_mp3_file: Mp3File) -> Response[Sample]:
+    async def execute(self, upload_mp3_file: Mp3File, minutes_per_sample: int) -> Response[Sample]:
         mp3_file_response = await self.mp3_file_usecase.execute(upload_mp3_file.name, upload_mp3_file.path)
 
         if not mp3_file_response.success:
             return Response(success=False, body=mp3_file_response.body)
 
-        sample_response = await self.create_sample_service.execute(mp3_file_response.body)
+        sample_response = await self.create_sample_service.execute(
+            mp3_file=mp3_file_response.body, minutes_per_sample=minutes_per_sample
+        )
 
         if not sample_response.success:
             return Response(success=False, body=sample_response.body)
