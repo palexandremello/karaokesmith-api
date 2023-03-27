@@ -61,3 +61,19 @@ class TestSaveSampleUseCase:
 
         assert not response.success
         assert response.body == "error to create a sample"
+
+    @pytest.mark.asyncio
+    async def test_should_return_response_with_error_when_repository_fails(
+        self, save_sample_usecase, sample_saver, repository, sample
+    ):
+        sample_saver.save_sample.return_value = Response(
+            success=True,
+            body=sample,
+        )
+
+        repository.save.return_value = Response(success=False, body="error to insert sample")
+
+        response = await save_sample_usecase.save(sample=sample)
+
+        assert not response.success
+        assert response.body == "error to insert sample"
