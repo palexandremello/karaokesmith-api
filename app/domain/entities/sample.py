@@ -9,6 +9,7 @@ class Sample:
     audio_option: Union[Mp3File, YoutubeAudio]
     name: Optional[str] = None
     content: bytes = None
+    path: Optional[str] = None
 
     @classmethod
     def from_dict(cls, dictionary: dict) -> "Sample":
