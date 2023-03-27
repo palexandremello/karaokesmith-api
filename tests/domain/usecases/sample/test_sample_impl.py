@@ -12,6 +12,7 @@ from domain.usecases.create_sample_from_youtube.create_sample_from_youtube_inter
     CreateSampleFromYoutubeUseCaseInterface,
 )
 from domain.usecases.sample.sample_impl import SampleUseCase
+from domain.usecases.save_sample.save_sample_interface import SaveSampleUseCaseInterface
 from domain.utils.response import Response
 
 
@@ -29,8 +30,8 @@ class TestSampleUseCase:
         return AsyncMock(spec=CreateSampleFromMp3UseCaseInterface)
 
     @pytest_asyncio.fixture
-    def sample_repository_stub(self):
-        return AsyncMock(spec=SampleRepositoryInterface)
+    def save_sample_usecase_stub(self):
+        return AsyncMock(spec=SaveSampleUseCaseInterface)
 
     @pytest_asyncio.fixture
     def create_sample_from_youtube_usecase_stub(self):
@@ -41,23 +42,23 @@ class TestSampleUseCase:
         self,
         create_sample_from_mp3_usecase_stub,
         create_sample_from_youtube_usecase_stub,
-        sample_repository_stub,
+        save_sample_usecase_stub,
     ):
         return SampleUseCase(
             create_sample_from_mp3_usecase=create_sample_from_mp3_usecase_stub,
             create_sample_from_youtube_usecase=create_sample_from_youtube_usecase_stub,
-            sample_repository=sample_repository_stub,
+            save_sample_usecase=save_sample_usecase_stub,
         )
 
     @pytest.mark.asyncio
     async def test_should_be_able_to_create_a_sample_from_youtube_usecase(
-        self, sample_usecase: SampleUseCase, create_sample_from_youtube_usecase_stub, sample_repository_stub
+        self, sample_usecase: SampleUseCase, create_sample_from_youtube_usecase_stub, save_sample_usecase_stub
     ):
         create_sample_from_youtube_usecase_stub.execute = AsyncMock(
             return_value=Response(success=True, body=self.sample)
         )
 
-        sample_repository_stub.save = AsyncMock(return_value=Response(success=True, body=self.sample))
+        save_sample_usecase_stub.save = AsyncMock(return_value=Response(success=True, body=self.sample))
         response = await sample_usecase.execute(
             name=None,
             minutes_per_sample=5,
@@ -69,13 +70,13 @@ class TestSampleUseCase:
 
     @pytest.mark.asyncio
     async def test_should_be_able_to_create_a_sample_from_mp3_usecase(
-        self, sample_usecase: SampleUseCase, create_sample_from_mp3_usecase_stub, sample_repository_stub
+        self, sample_usecase: SampleUseCase, create_sample_from_mp3_usecase_stub, save_sample_usecase_stub
     ):
         create_sample_from_mp3_usecase_stub.execute = AsyncMock(
             return_value=Response(success=True, body=self.sample_with_mp3)
         )
 
-        sample_repository_stub.save = AsyncMock(return_value=Response(success=True, body=self.sample_with_mp3))
+        save_sample_usecase_stub.save = AsyncMock(return_value=Response(success=True, body=self.sample_with_mp3))
 
         response = await sample_usecase.execute(
             name=None,
@@ -88,10 +89,10 @@ class TestSampleUseCase:
 
     @pytest.mark.asyncio
     async def test_should_return_a_response_with_error_when_create_samples_usecase_throws(
-        self, sample_usecase: SampleUseCase, create_sample_from_mp3_usecase_stub, sample_repository_stub
+        self, sample_usecase: SampleUseCase, create_sample_from_mp3_usecase_stub, save_sample_usecase_stub
     ):
         create_sample_from_mp3_usecase_stub.execute = AsyncMock(return_value=Response(success=False, body="any_error"))
-        sample_repository_stub.save = AsyncMock(return_value=Response(success=False, body="any_error"))
+        save_sample_usecase_stub.save = AsyncMock(return_value=Response(success=False, body="any_error"))
 
         response = await sample_usecase.execute(
             name=None,
