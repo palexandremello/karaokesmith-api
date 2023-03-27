@@ -10,6 +10,7 @@ class TestSample:
         "name": "any_artist",
         "audio_option": {"name": "any_artist", "path": "any_path"},
         "content": b"bytes",
+        "path": None,
     }
 
     @pytest.fixture
@@ -27,11 +28,7 @@ class TestSample:
         assert sut.name == self.EXPECTED_SAMPLE_DICTIONARY["name"]
 
     def test_should_be_able_to_returns_a_dict_from_Sample(self, mp3_file_data):
-        sample_dictionary = {
-            "name": "any_artist",
-            "audio_option": mp3_file_data,
-            "content": b"bytes",
-        }
+        sample_dictionary = {"name": "any_artist", "audio_option": mp3_file_data, "content": b"bytes", "path": None}
         sut = Sample.from_dict(sample_dictionary)
 
         assert sut.to_dict() == self.EXPECTED_SAMPLE_DICTIONARY
@@ -39,11 +36,17 @@ class TestSample:
     def test_should_be_able_to_create_a_Sample_from_dict_and_return_dict_representation_when_is_YoutubeAudio(
         self, youtube_audio_data
     ):
-        sample_dictionary = {"name": "any_artist", "audio_option": youtube_audio_data, "content": b"bytes"}
+        sample_dictionary = {
+            "name": "any_artist",
+            "audio_option": youtube_audio_data,
+            "content": b"bytes",
+            "path": None,
+        }
         expected_dictionary_with_youtube_audio = {
             "name": "any_artist",
             "audio_option": youtube_audio_data.to_dict(),
             "content": b"bytes",
+            "path": None,
         }
         sut = Sample.from_dict(sample_dictionary)
 
