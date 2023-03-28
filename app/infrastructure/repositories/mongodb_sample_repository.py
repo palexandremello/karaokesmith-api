@@ -28,7 +28,15 @@ class MongoDbSampleRepository(SampleRepositoryInterface):
             result = self.collection.find_one({"_id": ObjectId(sample_id)})
             if result is None:
                 return Response(success=True, body=None)
-            return Response(success=True, body=Sample.from_dict(result))
+
+            sample = Sample(
+                audio_option=result["audio_option"],
+                name=result["name"],
+                content=result["content"],
+                path=result["path"],
+                id=result["_id"],
+            )
+            return Response(success=True, body=sample)
         except Exception as e:
             return Response(success=False, body=str(e))
 

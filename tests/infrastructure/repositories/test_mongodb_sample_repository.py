@@ -1,4 +1,5 @@
-from mongomock import MongoClient
+from unittest.mock import MagicMock
+from mongomock import MongoClient, patch
 import pytest
 from domain.entities.mp3_file import Mp3File
 from domain.entities.sample import Sample
@@ -19,7 +20,7 @@ class TestMongoDbRepository:
         )
         yield repository
 
-    def test_save(self, repository: MongoDbSampleRepository):
+    def test_should_able_to_save_sample_with_successful(self, repository: MongoDbSampleRepository):
         # Cria uma instância do objeto de entidade a ser salvo
         sample_with_mp3 = Sample(audio_option=Mp3File(name="any_artist", path="any_path"))
 
@@ -29,3 +30,14 @@ class TestMongoDbRepository:
         assert response.success is True
         assert response.body is sample_with_mp3
         assert response.body is not None
+
+    def test_should_able_to_get_a_sample_with_successful(self, repository: MongoDbSampleRepository):
+        # Cria uma instância do objeto de entidade a ser salvo
+        sample_with_mp3 = Sample(audio_option=Mp3File(name="any_artist", path="any_path"), content=b"any_bytes")
+
+        # Salva a entidade utilizando o repositório
+        sample_response = repository.save(sample_with_mp3)
+
+        response = repository.get(sample_id=sample_response.body.id)
+
+        assert response.body.id == sample_response.body.id
