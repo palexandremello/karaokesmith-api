@@ -58,3 +58,14 @@ class TestMongoDbRepository:
         response = repository.get(sample_id="any_id")
 
         assert not response.success
+
+    def test_should_able_to_delete_a_sample_with_successful(self, repository: MongoDbSampleRepository):
+        # Cria uma instância do objeto de entidade a ser salvo
+        sample_with_mp3 = Sample(audio_option=Mp3File(name="any_artist", path="any_path"), content=b"any_bytes")
+
+        # Salva a entidade utilizando o repositório
+        sample_response = repository.save(sample_with_mp3)
+
+        response = repository.delete(sample_id=sample_response.body.id)
+
+        assert response.success
