@@ -10,6 +10,7 @@ class Sample:
     name: Optional[str] = None
     content: bytes = None
     path: Optional[str] = None
+    id: Optional[str] = None
 
     @classmethod
     def from_dict(cls, dictionary: dict) -> "Sample":

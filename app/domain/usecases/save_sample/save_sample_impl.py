@@ -16,7 +16,7 @@ class SaveSampleUseCase(SaveSampleUseCaseInterface):
         if not response.success:
             return Response(success=False, body=response.body)
 
-        response = await self.repository.save(sample=response.body)
+        response = self.repository.save(sample=response.body)
 
         if not response.success:
             return Response(success=False, body=response.body)
