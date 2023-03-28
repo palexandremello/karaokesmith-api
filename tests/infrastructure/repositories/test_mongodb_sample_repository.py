@@ -2,7 +2,7 @@ import pytest
 from mongomock import MongoClient
 from domain.entities.mp3_file import Mp3File
 from domain.entities.sample import Sample
-from infrastructure.repositories.mongodb_sample_repository import MongoDbSampleRepository
+from infrastructure.repos.mongodb.mongodb_sample_repository import MongoDbSampleRepository
 
 
 class TestMongoDbRepository:

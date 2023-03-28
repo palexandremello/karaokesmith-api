@@ -1,5 +1,5 @@
 import pytest
-from unittest.mock import AsyncMock
+from unittest.mock import AsyncMock, MagicMock
 
 import pytest_asyncio
 from domain.entities.mp3_file import Mp3File
@@ -22,7 +22,7 @@ class TestSaveSampleUseCase:
 
     @pytest_asyncio.fixture
     def repository(self):
-        return AsyncMock(spec=SampleRepositoryInterface)
+        return MagicMock(spec=SampleRepositoryInterface)
 
     @pytest_asyncio.fixture
     def sample_saver(self):
