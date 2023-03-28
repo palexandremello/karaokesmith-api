@@ -52,3 +52,9 @@ class TestMongoDbRepository:
         response = repository.get(sample_id="626bccb9697a12204fb22ea3")
 
         assert response.body is None
+
+    def test_should_returns_a_response_error_when_get_throws(self, repository: MongoDbSampleRepository):
+        # Salva a entidade utilizando o repositório
+        response = repository.get(sample_id="any_id")
+
+        assert not response.success
