@@ -69,3 +69,10 @@ class TestMongoDbRepository:
         response = repository.delete(sample_id=sample_response.body.id)
 
         assert response.success
+
+    def test_should_returns_a_response_with_error_when_try_to_delete_a_sample_not_exists(
+        self, repository: MongoDbSampleRepository
+    ):
+        response = repository.delete(sample_id="626bccb9697a12204fb22ea3")
+
+        assert response.body == "Sample not found"
