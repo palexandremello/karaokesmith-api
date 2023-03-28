@@ -49,3 +49,8 @@ class TestMongoDbRepository:
         response = repository.get(sample_id=sample_response.body.id)
 
         assert response.body.id == sample_response.body.id
+
+    def test_should_return_a_body_None_when_sample_does_not_exists(self, repository: MongoDbSampleRepository):
+        response = repository.get(sample_id="626bccb9697a12204fb22ea3")
+
+        assert response.body is None
