@@ -31,6 +31,14 @@ class TestMongoDbRepository:
         assert response.body is sample_with_mp3
         assert response.body is not None
 
+    def test_should_returns_a_response_error_when_MongoDbSampleRepository_throws(
+        self, repository: MongoDbSampleRepository
+    ):
+        # Salva a entidade utilizando o repositório
+        response = repository.save("any")
+
+        assert not response.success
+
     def test_should_able_to_get_a_sample_with_successful(self, repository: MongoDbSampleRepository):
         # Cria uma instância do objeto de entidade a ser salvo
         sample_with_mp3 = Sample(audio_option=Mp3File(name="any_artist", path="any_path"), content=b"any_bytes")
