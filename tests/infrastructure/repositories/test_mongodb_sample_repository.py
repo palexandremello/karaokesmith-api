@@ -76,3 +76,8 @@ class TestMongoDbRepository:
         response = repository.delete(sample_id="626bccb9697a12204fb22ea3")
 
         assert response.body == "Sample not found"
+
+    def test_should_returns_a_response_with_error_when_delete_throws(self, repository: MongoDbSampleRepository):
+        response = repository.delete(sample_id="incorrect_id")
+
+        assert not response.success
