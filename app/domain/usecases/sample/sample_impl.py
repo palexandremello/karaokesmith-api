@@ -1,6 +1,5 @@
 from typing import Optional
 from domain.entities.sample import Sample
-from domain.repositories.sample_repository_interface import SampleRepositoryInterface
 from domain.usecases.create_sample_from_mp3.create_sample_from_mp3_interface import CreateSampleFromMp3UseCaseInterface
 from domain.usecases.create_sample_from_youtube.create_sample_from_youtube_interface import (
     CreateSampleFromYoutubeUseCaseInterface,
