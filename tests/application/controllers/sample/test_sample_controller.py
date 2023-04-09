@@ -81,3 +81,28 @@ class TestCreateSampleController:
         # Act
         response = await create_sample_controller.handle(http_request)
         assert response.status_code == 400
+
+    @pytest.mark.asyncio
+    async def test_should_return_500_when_create_sample_throws(
+        self,
+        create_sample_controller,
+        sample_usecase_stub,
+    ):
+        # Arrange
+        minutes_per_sample = "1"
+        name = "Silent Screamer - Tatsurō Yamashita"
+        video_url = "https://www.youtube.com/watch?v=_pNqMc6NVAE"
+
+        http_request = HttpRequest(
+            form={
+                "minutes_per_sample": minutes_per_sample,
+                "name": name,
+                "video_url": video_url,
+            }
+        )
+
+        sample_usecase_stub.execute = AsyncMock(return_value=Exception("any_error"))
+
+        # Act
+        response = await create_sample_controller.handle(http_request)
+        assert response.status_code == 500
