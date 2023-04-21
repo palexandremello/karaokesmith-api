@@ -1,17 +1,17 @@
-from unittest.mock import AsyncMock
 import pytest
 import pytest_asyncio
-from domain.entities.audio_media import AudioMedia
-from domain.entities.mp3_file import Mp3File
-from domain.entities.video_source import VideoSource
-from domain.entities.youtube_audio import YoutubeAudio
-from domain.usecases.get_youtube_video.get_youtube_video_interface import GetYoutubeVideoUseCaseInterface
+from unittest.mock import AsyncMock
+from app.domain.entities.audio_media import AudioMedia
+from app.domain.entities.mp3_file import Mp3File
+from app.domain.entities.video_source import VideoSource
+from app.domain.entities.youtube_audio import YoutubeAudio
+from app.domain.usecases.get_youtube_video.get_youtube_video_interface import GetYoutubeVideoUseCaseInterface
 
 from domain.usecases.video_to_audio_converter.video_to_audio_converter_interface import (
     VideoToAudioConverterUseCaseInterface,
 )
-from domain.usecases.youtube_audio.youtube_audio_impl import YoutubeAudioUseCase
-from domain.utils.response import Response
+from app.domain.usecases.youtube_audio.youtube_audio_impl import YoutubeAudioUseCase
+from app.domain.utils.response import Response
 
 
 class TestYoutubeAudioUseCase:
