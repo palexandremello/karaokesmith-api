@@ -1,19 +1,20 @@
 from unittest.mock import AsyncMock
 import pytest
 import pytest_asyncio
-from domain.entities.mp3_file import Mp3File
-from domain.entities.sample import Sample
-from domain.entities.youtube_audio import YoutubeAudio
-
-from domain.services.create_sample_service.create_sample_service_interface import CreateSampleServiceInterface
-from domain.usecases.create_sample_from_youtube.create_sample_from_youtube_impl import CreateSampleFromYoutubeUseCase
-from domain.usecases.get_youtube_video.get_youtube_video_interface import GetYoutubeVideoUseCaseInterface
-from domain.usecases.video_to_audio_converter.video_to_audio_converter_interface import (
+from app.domain.entities.mp3_file import Mp3File
+from app.domain.entities.sample import Sample
+from app.domain.entities.youtube_audio import YoutubeAudio
+from app.domain.services.create_sample_service.create_sample_service_interface import CreateSampleServiceInterface
+from app.domain.usecases.create_sample_from_youtube.create_sample_from_youtube_impl import (
+    CreateSampleFromYoutubeUseCase,
+)
+from app.domain.usecases.get_youtube_video.get_youtube_video_interface import GetYoutubeVideoUseCaseInterface
+from app.domain.usecases.video_to_audio_converter.video_to_audio_converter_interface import (
     VideoToAudioConverterUseCaseInterface,
 )
-from domain.usecases.youtube_audio.youtube_audio_impl import YoutubeAudioUseCase
-from domain.usecases.youtube_audio.youtube_audio_interface import YoutubeAudioUseCaseInterface
-from domain.utils.response import Response
+from app.domain.usecases.youtube_audio.youtube_audio_impl import YoutubeAudioUseCase
+from app.domain.usecases.youtube_audio.youtube_audio_interface import YoutubeAudioUseCaseInterface
+from app.domain.utils.response import Response
 
 
 class CreateSampleServiceStub(CreateSampleServiceInterface):
