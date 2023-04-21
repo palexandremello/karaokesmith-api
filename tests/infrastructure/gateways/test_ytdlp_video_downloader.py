@@ -1,8 +1,8 @@
-from typing import Dict
-from unittest.mock import patch
 import pytest
 import pytest_asyncio
-from infrastructure.gateways.ytdlp_video_downloader import YtDlpVideoDownloader
+from typing import Dict
+from unittest.mock import patch
+from app.infrastructure.gateways.ytdlp_video_downloader import YtDlpVideoDownloader
 
 
 class TestYtDlpVideoDownloader:
@@ -25,9 +25,7 @@ class TestYtDlpVideoDownloader:
         mock_youtube_dl: Dict[str, str],
     ):
         with patch("yt_dlp.YoutubeDL.extract_info", return_value=mock_youtube_dl):
-            video_metadata = await ytdlp_video_downloader_stub.get_video_info(
-                "any_video_url"
-            )
+            video_metadata = await ytdlp_video_downloader_stub.get_video_info("any_video_url")
 
         assert video_metadata.title == "mocked_video_title"
         assert video_metadata.thumbnail_url == "mocked_thumbnail_url"
@@ -46,9 +44,7 @@ class TestYtDlpVideoDownloader:
         self,
         ytdlp_video_downloader_stub: YtDlpVideoDownloader,
     ):
-        with patch(
-            "yt_dlp.YoutubeDL.download", return_value=[{"filepath": "any_path"}]
-        ):
+        with patch("yt_dlp.YoutubeDL.download", return_value=[{"filepath": "any_path"}]):
             path = await ytdlp_video_downloader_stub.get_video("any_video_url")
 
             assert path == "any_path"
@@ -58,7 +54,5 @@ class TestYtDlpVideoDownloader:
         self, ytdlp_video_downloader_stub: YtDlpVideoDownloader
     ):
         with patch("yt_dlp.YoutubeDL.download", return_value=[]):
-            with pytest.raises(
-                FileExistsError, match="it was not able to retrieve video content"
-            ):
+            with pytest.raises(FileExistsError, match="it was not able to retrieve video content"):
                 await ytdlp_video_downloader_stub.get_video("any_video_url")
