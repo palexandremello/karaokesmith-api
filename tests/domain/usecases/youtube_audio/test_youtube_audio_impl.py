@@ -7,7 +7,7 @@ from app.domain.entities.video_source import VideoSource
 from app.domain.entities.youtube_audio import YoutubeAudio
 from app.domain.usecases.get_youtube_video.get_youtube_video_interface import GetYoutubeVideoUseCaseInterface
 
-from domain.usecases.video_to_audio_converter.video_to_audio_converter_interface import (
+from app.domain.usecases.video_to_audio_converter.video_to_audio_converter_interface import (
     VideoToAudioConverterUseCaseInterface,
 )
 from app.domain.usecases.youtube_audio.youtube_audio_impl import YoutubeAudioUseCase
