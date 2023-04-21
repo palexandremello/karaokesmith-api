@@ -1,11 +1,11 @@
 import pytest
 import pytest_asyncio
 from unittest.mock import AsyncMock
-from domain.entities.audio_media import AudioFormat, AudioMedia
-from domain.entities.video_source import VideoSource
-from domain.services.video_converter.converter_interface import ConverterInterface
-from domain.services.video_converter.video_converter_service import VideoConverterService
-from domain.services.video_converter.video_converter_service_interface import VideoConverterServiceInterface
+from app.domain.entities.audio_media import AudioFormat, AudioMedia
+from app.domain.entities.video_source import VideoSource
+from app.domain.services.video_converter.converter_interface import ConverterInterface
+from app.domain.services.video_converter.video_converter_service import VideoConverterService
+from app.domain.services.video_converter.video_converter_service_interface import VideoConverterServiceInterface
 
 
 class TestVideoConverterService:

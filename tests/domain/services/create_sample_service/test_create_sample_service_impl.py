@@ -1,11 +1,10 @@
+import pytest
+import pytest_asyncio
 from typing import List
 from unittest.mock import AsyncMock
-import pytest
-
-import pytest_asyncio
-from domain.entities.mp3_file import Mp3File
-from domain.services.create_sample_service.create_sample_service import CreateSampleService
-from domain.services.create_sample_service.sampler_interface import SamplerInterface
+from app.domain.entities.mp3_file import Mp3File
+from app.domain.services.create_sample_service.create_sample_service import CreateSampleService
+from app.domain.services.create_sample_service.sampler_interface import SamplerInterface
 
 
 class SamplerStub(SamplerInterface):

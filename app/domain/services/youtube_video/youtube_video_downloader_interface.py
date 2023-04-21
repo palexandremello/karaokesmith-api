@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from domain.entities.video_metadata import VideoMetadata
+from app.domain.entities.video_metadata import VideoMetadata
 
 
 class YoutubeDownloaderInterface(ABC):

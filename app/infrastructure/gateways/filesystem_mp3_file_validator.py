@@ -1,6 +1,6 @@
 import os
 import aiofiles
-from domain.services.mp3_file.mp3_file_validator_interface import Mp3FileValidatorInterface
+from app.domain.services.mp3_file.mp3_file_validator_interface import Mp3FileValidatorInterface
 
 
 class FileSystemMp3FileValidator(Mp3FileValidatorInterface):

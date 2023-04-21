@@ -1,7 +1,6 @@
 from abc import ABC, abstractmethod
-from domain.entities.sample import Sample
-
-from domain.utils.response import Response
+from app.domain.entities.sample import Sample
+from app.domain.utils.response import Response
 
 
 class CreateSampleFromYoutubeUseCaseInterface(ABC):

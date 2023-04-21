@@ -1,7 +1,6 @@
 from abc import ABC, abstractmethod
-from domain.entities.video_source import VideoSource
-
-from domain.utils.response import Response
+from app.domain.entities.video_source import VideoSource
+from app.domain.utils.response import Response
 
 
 class GetYoutubeVideoUseCaseInterface(ABC):

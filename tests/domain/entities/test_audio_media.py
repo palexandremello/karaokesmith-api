@@ -1,4 +1,4 @@
-from domain.entities.audio_media import AudioMedia
+from app.domain.entities.audio_media import AudioMedia
 
 
 AUDIO_MEDIA_DICTIONARY = {"path": "any_path", "audio_format": "mp3"}

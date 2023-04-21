@@ -1,7 +1,7 @@
-from domain.entities.mp3_file import Mp3File
-from domain.usecases.mp3_file.mp3_file_interface import Mp3FileUseCaseInterface
-from domain.services.mp3_file.mp3_file_service_interface import Mp3FileServiceInterface
-from domain.utils.response import Response
+from app.domain.entities.mp3_file import Mp3File
+from app.domain.usecases.mp3_file.mp3_file_interface import Mp3FileUseCaseInterface
+from app.domain.services.mp3_file.mp3_file_service_interface import Mp3FileServiceInterface
+from app.domain.utils.response import Response
 
 
 class Mp3FileUseCase(Mp3FileUseCaseInterface):

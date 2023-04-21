@@ -1,9 +1,9 @@
 import asyncio
 from tempfile import TemporaryDirectory
 from yt_dlp import YoutubeDL
-from domain.entities.video_metadata import VideoMetadata
+from app.domain.entities.video_metadata import VideoMetadata
 
-from domain.services.youtube_video.youtube_video_downloader_interface import (
+from app.domain.services.youtube_video.youtube_video_downloader_interface import (
     YoutubeDownloaderInterface,
 )
 

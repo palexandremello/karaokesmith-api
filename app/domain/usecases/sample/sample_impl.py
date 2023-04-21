@@ -1,12 +1,14 @@
 from typing import Optional
-from domain.entities.sample import Sample
-from domain.usecases.create_sample_from_mp3.create_sample_from_mp3_interface import CreateSampleFromMp3UseCaseInterface
-from domain.usecases.create_sample_from_youtube.create_sample_from_youtube_interface import (
+from app.domain.entities.sample import Sample
+from app.domain.usecases.create_sample_from_mp3.create_sample_from_mp3_interface import (
+    CreateSampleFromMp3UseCaseInterface,
+)
+from app.domain.usecases.create_sample_from_youtube.create_sample_from_youtube_interface import (
     CreateSampleFromYoutubeUseCaseInterface,
 )
-from domain.usecases.sample.sample_interface import SampleUseCaseInterface
-from domain.usecases.save_sample.save_sample_interface import SaveSampleUseCaseInterface
-from domain.utils.response import Response
+from app.domain.usecases.sample.sample_interface import SampleUseCaseInterface
+from app.domain.usecases.save_sample.save_sample_interface import SaveSampleUseCaseInterface
+from app.domain.utils.response import Response
 
 
 class SampleUseCase(SampleUseCaseInterface):
@@ -29,10 +31,17 @@ class SampleUseCase(SampleUseCaseInterface):
     ) -> Response[Sample]:
         if upload_mp3_file:
             sample_response = await self.create_sample_from_mp3_usecase.execute(upload_mp3_file, minutes_per_sample)
+
+            if not sample_response.success:
+                return Response(success=False, body=sample_response.body)
+
             response = await self.save_sample_usecase.save(sample_response.body)
 
         elif video_url:
             sample_response = await self.create_sample_from_youtube_usecase.execute(video_url, minutes_per_sample)
+            if not sample_response.success:
+                return Response(success=False, body=sample_response.body)
+
             response = await self.save_sample_usecase.save(sample_response.body)
 
         if not response.success:

@@ -1,11 +1,10 @@
-from unittest.mock import MagicMock
 import pytest
-from domain.entities.mp3_file import Mp3File
-from domain.entities.sample import Sample
-from domain.services.sample_saver.sample_saver import SampleSaver
-
-from domain.services.sample_saver.save_method_interface import SaveMethodInterface
-from domain.utils.response import Response
+from unittest.mock import MagicMock
+from app.domain.entities.mp3_file import Mp3File
+from app.domain.entities.sample import Sample
+from app.domain.services.sample_saver.sample_saver import SampleSaver
+from app.domain.services.sample_saver.save_method_interface import SaveMethodInterface
+from app.domain.utils.response import Response
 
 
 class TestSampleSaver:

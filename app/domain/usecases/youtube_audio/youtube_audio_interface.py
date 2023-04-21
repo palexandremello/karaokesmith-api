@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
-from domain.entities.youtube_audio import YoutubeAudio
-from domain.utils.response import Response
+from app.domain.entities.youtube_audio import YoutubeAudio
+from app.domain.utils.response import Response
 
 
 class YoutubeAudioUseCaseInterface(ABC):

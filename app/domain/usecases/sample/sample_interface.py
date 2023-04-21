@@ -1,8 +1,8 @@
 from abc import ABC, abstractmethod
 from typing import Optional
 
-from domain.entities.sample import Sample
-from domain.utils.response import Response
+from app.domain.entities.sample import Sample
+from app.domain.utils.response import Response
 
 
 class SampleUseCaseInterface(ABC):

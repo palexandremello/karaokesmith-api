@@ -1,11 +1,11 @@
-from domain.entities.mp3_file import Mp3File
-from domain.entities.youtube_audio import YoutubeAudio
-from domain.usecases.get_youtube_video.get_youtube_video_interface import GetYoutubeVideoUseCaseInterface
-from domain.usecases.video_to_audio_converter.video_to_audio_converter_interface import (
+from app.domain.entities.mp3_file import Mp3File
+from app.domain.entities.youtube_audio import YoutubeAudio
+from app.domain.usecases.get_youtube_video.get_youtube_video_interface import GetYoutubeVideoUseCaseInterface
+from app.domain.usecases.video_to_audio_converter.video_to_audio_converter_interface import (
     VideoToAudioConverterUseCaseInterface,
 )
-from domain.usecases.youtube_audio.youtube_audio_interface import YoutubeAudioUseCaseInterface
-from domain.utils.response import Response
+from app.domain.usecases.youtube_audio.youtube_audio_interface import YoutubeAudioUseCaseInterface
+from app.domain.utils.response import Response
 
 
 class YoutubeAudioUseCase(YoutubeAudioUseCaseInterface):

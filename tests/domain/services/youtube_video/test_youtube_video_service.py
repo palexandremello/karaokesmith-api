@@ -1,16 +1,16 @@
 import pytest
 import pytest_asyncio
 from unittest.mock import AsyncMock
-from domain.entities.video_metadata import VideoMetadata
-from domain.entities.video_source import VideoSource
-from domain.services.youtube_video.youtube_video_downloader_interface import (
+from app.domain.entities.video_metadata import VideoMetadata
+from app.domain.entities.video_source import VideoSource
+from app.domain.services.youtube_video.youtube_video_downloader_interface import (
     YoutubeDownloaderInterface,
 )
-from domain.services.youtube_video.youtube_video_service import YoutubeVideoService
-from domain.services.youtube_video.youtube_video_service_interface import (
+from app.domain.services.youtube_video.youtube_video_service import YoutubeVideoService
+from app.domain.services.youtube_video.youtube_video_service_interface import (
     YoutubeVideoServiceInterface,
 )
-from domain.utils.response import Response
+from app.domain.utils.response import Response
 
 
 class TestYoutubeVideoService:

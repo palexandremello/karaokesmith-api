@@ -1,19 +1,19 @@
 from unittest.mock import AsyncMock
 import pytest
 import pytest_asyncio
-from domain.entities.mp3_file import Mp3File
-from domain.entities.sample import Sample
-from domain.entities.youtube_audio import YoutubeAudio
-from domain.repositories.sample_repository_interface import SampleRepositoryInterface
-from domain.services.create_sample_service.create_sample_service_interface import CreateSampleServiceInterface
-
-from domain.usecases.create_sample_from_mp3.create_sample_from_mp3_interface import CreateSampleFromMp3UseCaseInterface
-from domain.usecases.create_sample_from_youtube.create_sample_from_youtube_interface import (
+from app.domain.entities.mp3_file import Mp3File
+from app.domain.entities.sample import Sample
+from app.domain.entities.youtube_audio import YoutubeAudio
+from app.domain.services.create_sample_service.create_sample_service_interface import CreateSampleServiceInterface
+from app.domain.usecases.create_sample_from_mp3.create_sample_from_mp3_interface import (
+    CreateSampleFromMp3UseCaseInterface,
+)
+from app.domain.usecases.create_sample_from_youtube.create_sample_from_youtube_interface import (
     CreateSampleFromYoutubeUseCaseInterface,
 )
-from domain.usecases.sample.sample_impl import SampleUseCase
-from domain.usecases.save_sample.save_sample_interface import SaveSampleUseCaseInterface
-from domain.utils.response import Response
+from app.domain.usecases.sample.sample_impl import SampleUseCase
+from app.domain.usecases.save_sample.save_sample_interface import SaveSampleUseCaseInterface
+from app.domain.utils.response import Response
 
 
 class TestSampleUseCase:

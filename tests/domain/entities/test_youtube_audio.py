@@ -1,5 +1,5 @@
-from domain.entities.mp3_file import Mp3File
-from domain.entities.youtube_audio import YoutubeAudio
+from app.domain.entities.mp3_file import Mp3File
+from app.domain.entities.youtube_audio import YoutubeAudio
 
 
 def test_should_create_a_YoutubeAudio_from_dict():

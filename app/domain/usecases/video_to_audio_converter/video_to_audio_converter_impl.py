@@ -1,10 +1,10 @@
-from domain.entities.audio_media import AudioMedia
-from domain.entities.video_source import VideoSource
-from domain.services.video_converter.video_converter_service_interface import VideoConverterServiceInterface
-from domain.usecases.video_to_audio_converter.video_to_audio_converter_interface import (
+from app.domain.entities.audio_media import AudioMedia
+from app.domain.entities.video_source import VideoSource
+from app.domain.services.video_converter.video_converter_service_interface import VideoConverterServiceInterface
+from app.domain.usecases.video_to_audio_converter.video_to_audio_converter_interface import (
     VideoToAudioConverterUseCaseInterface,
 )
-from domain.utils.response import Response
+from app.domain.utils.response import Response
 
 
 class VideoToAudioConverterUseCase(VideoToAudioConverterUseCaseInterface):

@@ -1,12 +1,11 @@
 from unittest.mock import AsyncMock
 import pytest
 import pytest_asyncio
-from domain.entities.mp3_file import Mp3File
-from domain.services.create_sample_service.create_sample_service_interface import CreateSampleServiceInterface
-
-from domain.usecases.create_sample_from_mp3.create_sample_from_mp3_impl import CreateSampleFromMp3UseCase
-from domain.usecases.mp3_file.mp3_file_interface import Mp3FileUseCaseInterface
-from domain.utils.response import Response
+from app.domain.entities.mp3_file import Mp3File
+from app.domain.services.create_sample_service.create_sample_service_interface import CreateSampleServiceInterface
+from app.domain.usecases.create_sample_from_mp3.create_sample_from_mp3_impl import CreateSampleFromMp3UseCase
+from app.domain.usecases.mp3_file.mp3_file_interface import Mp3FileUseCaseInterface
+from app.domain.utils.response import Response
 
 
 class TestCreateSampleFromMp3:

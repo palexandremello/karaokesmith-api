@@ -1,7 +1,7 @@
-from domain.entities.sample import Sample
-from domain.services.sample_saver.sample_saver_interface import SampleSaverInterface
-from domain.repositories.sample_repository_interface import SampleRepositoryInterface
-from domain.utils.response import Response
+from app.domain.entities.sample import Sample
+from app.domain.services.sample_saver.sample_saver_interface import SampleSaverInterface
+from app.domain.repositories.sample_repository_interface import SampleRepositoryInterface
+from app.domain.utils.response import Response
 from .save_sample_interface import SaveSampleUseCaseInterface
 
 

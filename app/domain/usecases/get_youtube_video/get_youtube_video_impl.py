@@ -1,7 +1,7 @@
-from domain.entities.video_source import VideoSource
-from domain.usecases.get_youtube_video.get_youtube_video_interface import GetYoutubeVideoUseCaseInterface
-from domain.services.youtube_video.youtube_video_service_interface import YoutubeVideoServiceInterface
-from domain.utils.response import Response
+from app.domain.entities.video_source import VideoSource
+from app.domain.usecases.get_youtube_video.get_youtube_video_interface import GetYoutubeVideoUseCaseInterface
+from app.domain.services.youtube_video.youtube_video_service_interface import YoutubeVideoServiceInterface
+from app.domain.utils.response import Response
 
 
 class GetYoutubeVideoUseCase(GetYoutubeVideoUseCaseInterface):

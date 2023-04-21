@@ -1,7 +1,7 @@
 from dataclasses import asdict, dataclass
 from typing import Optional, Union
-from domain.entities.mp3_file import Mp3File
-from domain.entities.youtube_audio import YoutubeAudio
+from app.domain.entities.mp3_file import Mp3File
+from app.domain.entities.youtube_audio import YoutubeAudio
 
 
 @dataclass

@@ -1,10 +1,10 @@
-from domain.entities.sample import Sample
-from domain.services.create_sample_service.create_sample_service_interface import CreateSampleServiceInterface
-from domain.usecases.create_sample_from_youtube.create_sample_from_youtube_interface import (
+from app.domain.entities.sample import Sample
+from app.domain.services.create_sample_service.create_sample_service_interface import CreateSampleServiceInterface
+from app.domain.usecases.create_sample_from_youtube.create_sample_from_youtube_interface import (
     CreateSampleFromYoutubeUseCaseInterface,
 )
-from domain.usecases.youtube_audio.youtube_audio_interface import YoutubeAudioUseCaseInterface
-from domain.utils.response import Response
+from app.domain.usecases.youtube_audio.youtube_audio_interface import YoutubeAudioUseCaseInterface
+from app.domain.utils.response import Response
 
 
 class CreateSampleFromYoutubeUseCase(CreateSampleFromYoutubeUseCaseInterface):

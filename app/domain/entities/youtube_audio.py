@@ -1,6 +1,6 @@
 import dataclasses
 from typing import Optional
-from domain.entities.mp3_file import Mp3File
+from app.domain.entities.mp3_file import Mp3File
 
 
 @dataclasses.dataclass

@@ -2,10 +2,9 @@ from typing import Optional
 from bson import ObjectId
 from pymongo import MongoClient
 from pymongo.collection import Collection
-from domain.entities.sample import Sample
-from domain.repositories.sample_repository_interface import SampleRepositoryInterface
-
-from domain.utils.response import Response
+from app.domain.entities.sample import Sample
+from app.domain.repositories.sample_repository_interface import SampleRepositoryInterface
+from app.domain.utils.response import Response
 
 
 class MongoDbSampleRepository(SampleRepositoryInterface):

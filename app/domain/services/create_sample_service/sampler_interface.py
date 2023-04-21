@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 from typing import List
 
-from domain.entities.mp3_file import Mp3File
+from app.domain.entities.mp3_file import Mp3File
 
 
 class SamplerInterface(ABC):

@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
-from domain.entities.mp3_file import Mp3File
-from domain.utils.response import Response
+from app.domain.entities.mp3_file import Mp3File
+from app.domain.utils.response import Response
 
 
 class Mp3FileUseCaseInterface(ABC):

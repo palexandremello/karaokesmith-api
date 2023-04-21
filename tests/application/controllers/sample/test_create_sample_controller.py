@@ -1,12 +1,12 @@
 from unittest.mock import AsyncMock
 import pytest
 import pytest_asyncio
-from application.controllers.create_sample.create_sample_controller import CreateSampleController
-from application.helpers.http.request import HttpRequest
-from domain.entities.youtube_audio import YoutubeAudio
-from domain.usecases.sample.sample_interface import SampleUseCaseInterface
-from domain.entities.sample import Sample
-from domain.utils.response import Response
+from app.application.controllers.create_sample.create_sample_controller import CreateSampleController
+from app.application.helpers.http.request import HttpRequest
+from app.domain.entities.youtube_audio import YoutubeAudio
+from app.domain.usecases.sample.sample_interface import SampleUseCaseInterface
+from app.domain.entities.sample import Sample
+from app.domain.utils.response import Response
 
 
 class TestCreateSampleController:
@@ -47,6 +47,7 @@ class TestCreateSampleController:
                 "minutes_per_sample": minutes_per_sample,
                 "name": name,
                 "video_url": video_url,
+                "upload_mp3_file": "",
             }
         )
 
