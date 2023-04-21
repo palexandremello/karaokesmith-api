@@ -1,13 +1,12 @@
 import pytest
-from unittest.mock import AsyncMock, MagicMock
-
 import pytest_asyncio
-from domain.entities.mp3_file import Mp3File
-from domain.entities.sample import Sample
-from domain.repositories.sample_repository_interface import SampleRepositoryInterface
-from domain.services.sample_saver.sample_saver_interface import SampleSaverInterface
-from domain.usecases.save_sample.save_sample_impl import SaveSampleUseCase
-from domain.utils.response import Response
+from unittest.mock import AsyncMock, MagicMock
+from app.domain.entities.mp3_file import Mp3File
+from app.domain.entities.sample import Sample
+from app.domain.repositories.sample_repository_interface import SampleRepositoryInterface
+from app.domain.services.sample_saver.sample_saver_interface import SampleSaverInterface
+from app.domain.usecases.save_sample.save_sample_impl import SaveSampleUseCase
+from app.domain.utils.response import Response
 
 
 class TestSaveSampleUseCase:
