@@ -21,6 +21,8 @@ from app.infra.logger.logger import Logger
 
 from pymongo import MongoClient
 
+from app.domain.services.sample_saver.sample_saver import SampleSaver
+
 
 def create_sample_composer():
     logger = Logger.get_instance()
@@ -51,7 +53,9 @@ def create_sample_composer():
     mongodb_repository = MongoDbSampleRepository(
         mongo_client=MongoClient(), database_name="karaokesmith", collection_name="sample"
     )
-    save_sample_usecase = SaveSampleUseCase(repository=mongodb_repository, sample_saver="sample_saver")
+
+    sample_saver_service = SampleSaver(save_method="save_method")
+    save_sample_usecase = SaveSampleUseCase(repository=mongodb_repository, sample_saver=sample_saver_service)
     sample_usecase = SampleUseCase(
         create_sample_from_mp3_usecase=create_sample_from_mp3_usecase,
         create_sample_from_youtube_usecase=create_sample_from_youtube_usecase,

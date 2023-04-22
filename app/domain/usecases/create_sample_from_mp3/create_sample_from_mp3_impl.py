@@ -31,6 +31,7 @@ class CreateSampleFromMp3UseCase(CreateSampleFromMp3UseCaseInterface):
         sample_response = self.create_sample_service.execute(
             mp3_file=mp3_file_response.body, minutes_per_sample=minutes_per_sample
         )
+        self.logger.info(f"Samples was created successfully, numbers of samples: {len(sample_response.body)} ")
 
         if not sample_response.success:
             return Response(success=False, body=sample_response.body)

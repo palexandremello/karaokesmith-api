@@ -21,15 +21,10 @@ class PydubSampler(SamplerInterface):
         for each_sample in range(total_of_samples):
             start = each_sample * samples_size
             end = (each_sample + 1) * samples_size
-
             sample = audio[start:end]
-            sample_name = f"{mp3_file.name}_{each_sample}.mp3"
-            #            print(sample_name)
-            path = f"{self.__samples_dir}/{sample_name}"
-            mp3_file = Mp3File(name=sample_name, path=path)
+
+            content = sample.export(format="mp3").read()
+            mp3_file = Mp3File(name=mp3_file.name, path=content)
             self.samples.append(mp3_file)
 
-            sample.export(path, format="mp3")
-
-        print(self.samples)
         return self.samples
