@@ -2,9 +2,10 @@ import os
 import aiofiles
 import pytest
 import pytest_asyncio
-from app.infrastructure.gateways.filesystem_mp3_file_validator import FileSystemMp3FileValidator
 from unittest.mock import MagicMock, mock_open, patch
 from aiofiles import threadpool
+
+from app.infra.gateways.filesystem_mp3_file_validator import FileSystemMp3FileValidator
 
 aiofiles.threadpool.wrap.register(MagicMock)(lambda *args, **kwargs: threadpool.AsyncBufferedIOBase(*args, **kwargs))
 

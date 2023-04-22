@@ -2,7 +2,7 @@ import pytest
 import pytest_asyncio
 from typing import Dict
 from unittest.mock import patch
-from app.infrastructure.gateways.ytdlp_video_downloader import YtDlpVideoDownloader
+from app.infra.gateways.ytdlp_video_downloader import YtDlpVideoDownloader
 
 
 class TestYtDlpVideoDownloader:
