@@ -7,5 +7,5 @@ from app.domain.utils.response import Response
 
 class CreateSampleServiceInterface(ABC):
     @abstractmethod
-    async def execute(self, mp3_file: Mp3File, minutes_per_sample: int) -> Response[Sample]:
+    def execute(self, mp3_file: Mp3File, minutes_per_sample: int) -> Response[Sample]:
         pass
