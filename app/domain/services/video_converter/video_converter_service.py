@@ -10,5 +10,8 @@ class VideoConverterService(VideoConverterServiceInterface):
 
     def execute(self, video: VideoSource) -> AudioMedia:
         path = self.converter.execute(video)
-        audio_media = AudioMedia.from_dict({"path": path, "audio_format": "mp3"})
+
+        with open(path, "rb") as file:
+            content = file.read()
+        audio_media = AudioMedia.from_dict({"path": content, "audio_format": "mp3"})
         return audio_media

@@ -27,7 +27,6 @@ class YoutubeAudioUseCase(YoutubeAudioUseCaseInterface):
         converted_video_response = self.convert_video_to_audio_use_case.convert(video_response.body)
 
         if not converted_video_response.success:
-            print("entrou aqui")
             return Response(success=False, body=converted_video_response.body)
 
         mp3_file = Mp3File(name=video_response.body.title, path=converted_video_response.body.path)

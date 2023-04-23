@@ -14,11 +14,18 @@ class MongoDbSampleRepository(SampleRepositoryInterface):
 
     def save(self, samples: List[Sample]) -> Response[Sample]:
         try:
+            paths = []
             for sample in samples:
-                filter = {"path": sample.path}
-                update = {"$set": sample.to_dict()}
-                result = self.collection.update_one(filter, update, upsert=True)
-                sample.id = result.upserted_id or sample.id
+                paths.append(sample.path)
+
+            sample = sample.to_dict()
+            sample["path"] = paths
+
+            filter = {"name": sample["name"]}
+            update = {"$set": sample}
+            result = self.collection.update_one(filter, update, upsert=True)
+            sample["id"] = result.upserted_id or sample["id"]
+
             return Response(success=True, body=sample)
 
         except Exception as error:

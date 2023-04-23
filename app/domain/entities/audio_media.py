@@ -9,7 +9,7 @@ class AudioFormat(Enum):
 
 @dataclass
 class AudioMedia:
-    path: str
+    path: bytes
     audio_format: AudioFormat
 
     @classmethod
