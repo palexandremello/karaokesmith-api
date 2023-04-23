@@ -1,9 +1,7 @@
 from unittest.mock import AsyncMock
 import pytest
 import pytest_asyncio
-from app.domain.entities.mp3_file import Mp3File
 from app.domain.entities.sample import Sample
-from app.domain.entities.youtube_audio import YoutubeAudio
 from app.domain.services.create_sample_service.create_sample_service_interface import CreateSampleServiceInterface
 from app.domain.usecases.create_sample_from_mp3.create_sample_from_mp3_interface import (
     CreateSampleFromMp3UseCaseInterface,
