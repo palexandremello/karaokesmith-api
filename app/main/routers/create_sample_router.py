@@ -13,10 +13,10 @@ async def create_sample(request):
     )
 
     if response.status_code < 300:
-        message = {"type": "spreadsheet", "body": response.body}
+        message = {"type": "samples", "body": "Samples was created with success"}
         return JSONResponse(message, status_code=response.status_code)
 
     return JSONResponse(
-        {"error": {"status": response.status_code, "title": response.body["error"]}},
+        {"error": {"status": response.status_code, "title": str(response.body["error"])}},
         status_code=response.status_code,
     )

@@ -9,10 +9,10 @@ class GetYoutubeVideoUseCase(GetYoutubeVideoUseCaseInterface):
         self.youtube_video_service = youtube_video_service
 
     async def get(self, video_url: str) -> Response[VideoSource]:
-        try:
-            video = await self.youtube_video_service.download(video_url)
+        response_video = await self.youtube_video_service.download(video_url)
 
+        if response_video.success:
+            video = response_video.body
             return Response(success=True, body=video)
 
-        except Exception as error:
-            return Response(success=False, body=str(error))
+        return Response(success=False, body=response_video.body)

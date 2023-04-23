@@ -16,14 +16,13 @@ class YtDlpVideoDownloader(YoutubeDownloaderInterface):
 
     async def get_video(self, video_url: str) -> str:
         with self.youtube_dl:
-            result = await asyncio.get_event_loop().run_in_executor(
-                None, lambda: self.youtube_dl.download([video_url])
-            )
+            filename = self.youtube_dl.prepare_filename(self.youtube_dl.extract_info(video_url, download=False))
+            await asyncio.get_event_loop().run_in_executor(None, lambda: self.youtube_dl.download([video_url]))
 
-            if len(result) == 0:
+            if filename is None:
                 raise FileExistsError("it was not able to retrieve video content")
 
-            return result[0]["filepath"]
+            return f"{filename}.webm"
 
     async def get_video_info(self, video_url: str) -> VideoMetadata:
         with self.youtube_dl:

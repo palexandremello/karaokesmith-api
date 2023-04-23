@@ -40,14 +40,14 @@ class SampleUseCase(SampleUseCaseInterface):
             if not sample_response.success:
                 return Response(success=False, body=sample_response.body)
 
-            response = await self.save_sample_usecase.save(sample_response.body)
+            response = self.save_sample_usecase.save(sample_response.body)
 
         elif video_url:
             sample_response = await self.create_sample_from_youtube_usecase.execute(video_url, minutes_per_sample)
             if not sample_response.success:
                 return Response(success=False, body=sample_response.body)
 
-            response = await self.save_sample_usecase.save(sample_response.body)
+            response = self.save_sample_usecase.save(sample_response.body)
 
         if not response.success:
             return Response(success=False, body=response.body)

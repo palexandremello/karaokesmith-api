@@ -23,9 +23,11 @@ class YoutubeAudioUseCase(YoutubeAudioUseCaseInterface):
         if not video_response.success:
             return Response(success=False, body=video_response.body)
 
+        print(f"Body = {video_response.body}")
         converted_video_response = await self.convert_video_to_audio_use_case.convert(video_response.body)
 
         if not converted_video_response.success:
+            print("entrou aqui")
             return Response(success=False, body=converted_video_response.body)
 
         mp3_file = Mp3File(name=video_response.body.title, path=converted_video_response.body.path)

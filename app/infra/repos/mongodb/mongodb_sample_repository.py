@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import List, Optional
 from bson import ObjectId
 from pymongo import MongoClient
 from pymongo.collection import Collection
@@ -12,11 +12,13 @@ class MongoDbSampleRepository(SampleRepositoryInterface):
         self.db = mongo_client[database_name]
         self.collection: Collection = self.db[collection_name]
 
-    def save(self, sample: Sample) -> Response[Sample]:
+    def save(self, samples: List[Sample]) -> Response[Sample]:
         try:
-            result = self.collection.insert_one(sample.to_dict())
-
-            sample.id = result.inserted_id
+            for sample in samples:
+                filter = {"path": sample.path}
+                update = {"$set": sample.to_dict()}
+                result = self.collection.update_one(filter, update, upsert=True)
+                sample.id = result.upserted_id or sample.id
             return Response(success=True, body=sample)
 
         except Exception as error:

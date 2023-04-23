@@ -25,6 +25,7 @@ class PydubSampler(SamplerInterface):
 
             content = sample.export(format="mp3").read()
             mp3_file = Mp3File(name=mp3_file.name, path=content)
+
             self.samples.append(mp3_file)
 
         return self.samples

@@ -5,5 +5,5 @@ from app.domain.utils.response import Response
 
 class GetYoutubeVideoUseCaseInterface(ABC):
     @abstractmethod
-    async def get(self, video_url: str) -> Response[VideoSource]:
+    def get(self, video_url: str) -> Response[VideoSource]:
         pass

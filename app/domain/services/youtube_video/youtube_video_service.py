@@ -21,6 +21,8 @@ class YoutubeVideoService(YoutubeVideoServiceInterface):
                 thumbnail_url=video_metadata.thumbnail_url,
                 path=path,
             )
+
+            print(video)
             return Response(success=True, body=video)
         except KeyError as error:
             return Response(success=False, body=error)

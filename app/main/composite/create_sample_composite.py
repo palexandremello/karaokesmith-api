@@ -22,6 +22,8 @@ from app.infra.logger.logger import Logger
 from pymongo import MongoClient
 
 from app.domain.services.sample_saver.sample_saver import SampleSaver
+from app.infra.gateways.save_method.filesystem_save_method import FilesystemSaveMethod
+from app.main.config.settings import MONGODB_URI
 
 
 def create_sample_composer():
@@ -41,7 +43,9 @@ def create_sample_composer():
     get_youtube_video_usecase = GetYoutubeVideoUseCase(youtube_video_service=youtube_video_service)
 
     video_converter_service = VideoConverterService(converter="")
-    video_to_audio_converter_usecase = VideoToAudioConverterUseCase(video_converter_service=video_converter_service)
+    video_to_audio_converter_usecase = VideoToAudioConverterUseCase(
+        video_converter_service=video_converter_service, logger=logger
+    )
     youtube_audio_usecase = YoutubeAudioUseCase(
         get_youtube_video_usecase=get_youtube_video_usecase,
         video_to_audio_converter_usecase=video_to_audio_converter_usecase,
@@ -51,11 +55,16 @@ def create_sample_composer():
     )
 
     mongodb_repository = MongoDbSampleRepository(
-        mongo_client=MongoClient(), database_name="karaokesmith", collection_name="sample"
+        mongo_client=MongoClient(MONGODB_URI),
+        database_name="karaokesmith",
+        collection_name="sample",
     )
 
-    sample_saver_service = SampleSaver(save_method="save_method")
-    save_sample_usecase = SaveSampleUseCase(repository=mongodb_repository, sample_saver=sample_saver_service)
+    save_method_service = FilesystemSaveMethod(logger=logger)
+    sample_saver_service = SampleSaver(save_method=save_method_service)
+    save_sample_usecase = SaveSampleUseCase(
+        repository=mongodb_repository, sample_saver=sample_saver_service, logger=logger
+    )
     sample_usecase = SampleUseCase(
         create_sample_from_mp3_usecase=create_sample_from_mp3_usecase,
         create_sample_from_youtube_usecase=create_sample_from_youtube_usecase,

@@ -1,12 +1,9 @@
 from dataclasses import asdict, dataclass
-from typing import Optional, Union
-from app.domain.entities.mp3_file import Mp3File
-from app.domain.entities.youtube_audio import YoutubeAudio
+from typing import Optional
 
 
 @dataclass
 class Sample:
-    audio_option: Union[Mp3File, YoutubeAudio]
     name: Optional[str] = None
     content: bytes = None
     path: Optional[str] = None
