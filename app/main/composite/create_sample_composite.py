@@ -24,6 +24,7 @@ from pymongo import MongoClient
 from app.domain.services.sample_saver.sample_saver import SampleSaver
 from app.infra.gateways.save_method.filesystem_save_method import FilesystemSaveMethod
 from app.main.config.settings import MONGODB_URI
+from app.infra.gateways.converter.ffmpeg_converter import FFmpegConverter
 
 
 def create_sample_composer():
@@ -42,7 +43,8 @@ def create_sample_composer():
     youtube_video_service = YoutubeVideoService(youtube_video_downloader=youtube_video_downloader)
     get_youtube_video_usecase = GetYoutubeVideoUseCase(youtube_video_service=youtube_video_service)
 
-    video_converter_service = VideoConverterService(converter="")
+    converter = FFmpegConverter(logger=logger)
+    video_converter_service = VideoConverterService(converter=converter)
     video_to_audio_converter_usecase = VideoToAudioConverterUseCase(
         video_converter_service=video_converter_service, logger=logger
     )

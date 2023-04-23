@@ -24,7 +24,7 @@ class YoutubeAudioUseCase(YoutubeAudioUseCaseInterface):
             return Response(success=False, body=video_response.body)
 
         print(f"Body = {video_response.body}")
-        converted_video_response = await self.convert_video_to_audio_use_case.convert(video_response.body)
+        converted_video_response = self.convert_video_to_audio_use_case.convert(video_response.body)
 
         if not converted_video_response.success:
             print("entrou aqui")

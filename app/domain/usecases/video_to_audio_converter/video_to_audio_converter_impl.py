@@ -13,10 +13,10 @@ class VideoToAudioConverterUseCase(VideoToAudioConverterUseCaseInterface):
         self.video_converter_service = video_converter_service
         self.logger = logger
 
-    async def convert(self, video: VideoSource) -> Response[AudioMedia]:
+    def convert(self, video: VideoSource) -> Response[AudioMedia]:
         try:
             self.logger.info(f"Starting VideoConverterService to = {video.title}")
-            audio = await self.video_converter_service.execute(video)
+            audio = self.video_converter_service.execute(video)
             return Response(success=True, body=audio)
 
         except Exception as error:

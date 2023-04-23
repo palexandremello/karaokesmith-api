@@ -8,7 +8,7 @@ class VideoConverterService(VideoConverterServiceInterface):
     def __init__(self, converter: ConverterInterface) -> None:
         self.converter = converter
 
-    async def execute(self, video: VideoSource) -> AudioMedia:
-        path = await self.converter.execute(video)
+    def execute(self, video: VideoSource) -> AudioMedia:
+        path = self.converter.execute(video)
         audio_media = AudioMedia.from_dict({"path": path, "audio_format": "mp3"})
         return audio_media

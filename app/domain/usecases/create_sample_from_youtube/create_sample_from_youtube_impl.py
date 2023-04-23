@@ -22,9 +22,7 @@ class CreateSampleFromYoutubeUseCase(CreateSampleFromYoutubeUseCaseInterface):
         if not youtube_audio_response.success:
             return Response(success=False, body=youtube_audio_response.body)
 
-        sample_response = await self.create_sample_service.execute(
-            youtube_audio_response.body.mp3_file, minutes_per_sample
-        )
+        sample_response = self.create_sample_service.execute(youtube_audio_response.body.mp3_file, minutes_per_sample)
 
         if not sample_response.success:
             return Response(success=False, body=sample_response.body)

@@ -6,5 +6,5 @@ from app.domain.utils.response import Response
 
 class VideoToAudioConverterUseCaseInterface(ABC):
     @abstractmethod
-    async def convert(self, video: VideoSource) -> Response[AudioMedia]:
+    def convert(self, video: VideoSource) -> Response[AudioMedia]:
         pass
