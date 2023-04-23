@@ -1,3 +1,3 @@
 [run]
 source = app
-omit = **/*_interface.py,*enums/*, ./venv/*,*tests*,*apps.py,*manage.py,*__init__.py,*migrations*,*asgi*,*wsgi*,*admin.py,*urls.py, app/main/**
+omit =  **/data/**, **/*_interface.py,*enums/*, ./venv/*,*tests*,*apps.py,*manage.py,*__init__.py,*migrations*,*asgi*,*wsgi*,*admin.py,*urls.py, app/main/**
