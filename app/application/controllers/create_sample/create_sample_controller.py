@@ -10,14 +10,14 @@ class CreateSampleController(ControllerInterface):
         self.sample_usecase = sample_usecase
         self.logger = logger
 
-    async def handle(self, http_request: HttpRequest) -> HttpResponse:
+    def handle(self, http_request: HttpRequest) -> HttpResponse:
         try:
             video_url = http_request.form.get("video_url")
             minutes_per_sample = int(http_request.form.get("minutes_per_sample"))
             name = http_request.form.get("name")
             upload_mp3_file = http_request.form.get("upload_mp3_file")
 
-            response = await self.sample_usecase.execute(minutes_per_sample, name, video_url, upload_mp3_file)
+            response = self.sample_usecase.execute(minutes_per_sample, name, video_url, upload_mp3_file)
             if not response.success:
                 return HttpResponse(status_code=400, body={"error": response.body})
 

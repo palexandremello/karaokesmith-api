@@ -48,6 +48,21 @@ class MongoDbSampleRepository(SampleRepositoryInterface):
         except Exception as e:
             return Response(success=False, body=str(e))
 
+    def list_all(self) -> Response[List[Sample]]:
+        try:
+            cursor = self.collection.find({})
+            for result in cursor:
+                sample = Sample(
+                    name=result["name"],
+                    content=result["content"],
+                    path=result["path"],
+                    id=result["_id"],
+                )
+
+            return Response(success=True, body=sample)
+        except Exception as e:
+            return Response(success=False, body=str(e))
+
     def delete(self, sample_id: str) -> Response:
         try:
             result = self.collection.delete_one({"_id": ObjectId(sample_id)})
