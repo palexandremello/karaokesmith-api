@@ -129,6 +129,8 @@ A estrutura de pastas e arquivos do projeto é a seguinte:
 │       └── server.py
 └── tests
 
+```
+
 ## Como usar
 
 1. Clone este repositório.
