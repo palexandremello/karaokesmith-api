@@ -148,6 +148,6 @@ A estrutura de pastas e arquivos do projeto é a seguinte:
 ## Instalação
 
 ```bash
-git clone https://github.com/seu-usuario/karaokesmith.git
+git clone https://github.com/palexandremello/karaokesmith.git
 cd karaokesmith
 pip install -r requirements.txt
